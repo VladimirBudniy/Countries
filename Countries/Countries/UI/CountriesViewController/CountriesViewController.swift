@@ -1,5 +1,5 @@
 //
-//  TestViewController.swift
+//  CountriesViewController.swift
 //  LoadingView
 //
 //  Created by Vladimir Budniy on 12/1/16.
@@ -7,21 +7,19 @@
 //
 
 import UIKit
-import Alamofire
-import ReactiveCocoa
-import Result
 
-class TestViewController: UIViewController, ViewControllerRootView, UITableViewDataSource, UITableViewDelegate {
+
+class CountriesViewController: UIViewController, ViewControllerRootView, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Accessors
     
-    typealias RootViewType = TestView
+    typealias RootViewType = CountriesView
     
     var refreshControl: UIRefreshControl?
     
     var requestPage = 1
     
-    var countries: Array<CountrieModel> = []
+    var countries = [Country]()
     
     var tableView: UITableView {
         return self.rootView.tabelView
@@ -31,9 +29,8 @@ class TestViewController: UIViewController, ViewControllerRootView, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.addRefreshControl()
-        self.registerCellWithIdentifier(TestViewCell.className())
+        self.registerCellWithIdentifier(identifier: String(describing: CountriesViewCell.self))
         self.load()
     }
     
@@ -46,7 +43,7 @@ class TestViewController: UIViewController, ViewControllerRootView, UITableViewD
     
     private func addRefreshControl() {
         let control = UIRefreshControl()
-        control.addTarget(self, action: #selector(refreshView), forControlEvents: UIControlEvents.ValueChanged)
+        control.addTarget(self, action: #selector(refreshView), for: UIControlEvents.valueChanged)
         self.rootView.tabelView.addSubview(control)
         self.refreshControl = control
     }
@@ -61,47 +58,47 @@ class TestViewController: UIViewController, ViewControllerRootView, UITableViewD
     }
     
     private func load() {
-        Context.networkRequest(forPage: requestPage.description).startWithResult { result in
-            self.refreshControl!.endRefreshing()
-            self.countries.appendContentsOf(result.value!)
-            self.rootView.tabelView.reloadData()
-        }
+        NetworkModel.load(page: "1")
+        
+//        Context.networkRequest(forPage: requestPage.description).startWithResult { result in
+//            self.refreshControl!.endRefreshing()
+//            self.countries.appendContentsOf(result.value!)
+//            self.rootView.tabelView.reloadData()
+//        }
     }
     
     private func registerCellWithIdentifier(identifier: String) {
-        self.tableView.registerNib(UINib(nibName: identifier, bundle: nil),
+        self.tableView.register(UINib(nibName: identifier, bundle: nil),
                                    forCellReuseIdentifier: identifier)
     }
     
     // MARK: - UITableViewDataSource
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.countries.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(TestViewCell.className()) as! TestViewCell
-        cell.selectedBackgroundView = UIView()
-        cell.selectedBackgroundView?.backgroundColor = UIColor.clearColor()
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CountriesViewCell.description()) as! CountriesViewCell
         
-        cell.fillWithObject(self.countries[indexPath.row])
+        cell.fillWithObject(object: self.countries[indexPath.row])
         return cell
         
     }
     
     // MARK: - UITableViewDelegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let section = tableView.numberOfSections - 1
-        let lastRow = tableView.numberOfRowsInSection(section) - 1
-        
-        if indexPath.row == lastRow {
-            self.requestPage += 1
-            self.load()
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let section = tableView.numberOfSections - 1
+//        let lastRow = tableView.numberOfRows(inSection: section) - 1
+//        
+//        if indexPath.row == lastRow {
+//            self.requestPage += 1
+//            self.load()
+//        }
+//    }
 }

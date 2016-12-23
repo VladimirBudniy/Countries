@@ -1,5 +1,5 @@
 //
-//  TestView.swift
+//  CountriesView.swift
 //  LoadingView
 //
 //  Created by Vladimir Budniy on 12/1/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestView: UIView {
+class CountriesView: UIView {
     @IBOutlet weak var tabelView: UITableView!
 
 }

@@ -1,5 +1,5 @@
 //
-//  TestViewCell.swift
+//  CountriesViewCell.swift
 //  LoadingView
 //
 //  Created by Vladimir Budniy on 12/1/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestViewCell: UITableViewCell {
+class CountriesViewCell: UITableViewCell {
 
     // MARK: - Accessors
     
@@ -22,14 +22,14 @@ class TestViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
 
      // MARK: - Public
     
-    func fillWithObject(object: CountrieModel) {
+    func fillWithObject(object: Country) {
         self.countrieName.text = object.countrieName
         self.capitalName.text = object.capitalCity
     }
