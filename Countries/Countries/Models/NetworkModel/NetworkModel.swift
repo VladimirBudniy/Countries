@@ -14,7 +14,7 @@ let requestPage = "&page="
 
 class NetworkModel {
     
-    static func load(perPage: String = "15", page: String) {
+    static func load(perPage: String = "15", page: String = "1") {
 
         let requestURL = requestedURL + perPage + requestFormat + requestPage + page
         let url = URL(string: requestURL)
@@ -24,16 +24,14 @@ class NetworkModel {
         let session = URLSession(configuration: config)
 
         let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            
             if error == nil {
                 do{
                     let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments)
-                    let objects = ParsingModel.parsJSONToArray(json: json)
+                    let objects = ParsingModel.parsJSONToArray(json: json as! Array)
                     print(objects as Any)
                 }catch {
                     print("Error with Json: \(error)")
                 }
-                
             }
         })
         

@@ -15,7 +15,6 @@ class CountriesViewCell: UITableViewCell {
     @IBOutlet weak var countrieName: UILabel!
     @IBOutlet weak var capitalName: UILabel!
     
-    
     // MARK: - Initialization
     
     override func awakeFromNib() {

@@ -11,11 +11,12 @@ import CoreData
 
 class ParsingModel {
     
-    static func parsJSONToArray(json: Any) -> [Country]? {
-//        var array = Array<Any>()
-//        for dictionary in json as Dictionary {
-//            <#code#>
-//        }
+    static func parsJSONToArray(json: Array<Any>) -> [Country]? {
+
+        var array = Array<Any>()
+        for dictionary in json {
+            <#code#>
+        }
         
 //        NSMutableArray *array = [NSMutableArray array];
 //        for (NSDictionary *dictionary in object) {
@@ -30,7 +31,6 @@ class ParsingModel {
 //        
 //        return array;
         
-
         return nil
     }
     

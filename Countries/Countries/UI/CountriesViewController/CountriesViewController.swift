@@ -31,7 +31,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         super.viewDidLoad()
         self.addRefreshControl()
         self.registerCellWithIdentifier(identifier: String(describing: CountriesViewCell.self))
-        self.load()
+        self.loadCountries()
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,15 +50,16 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     @objc private func refreshView() {
         self.requestPage = defaultPage()
-        self.load() // need remove all objects from cache
+        self.loadCountries() // need remove all objects from cache
     }
     
     private func defaultPage() -> Int {
         return 1
     }
     
-    private func load() {
-        NetworkModel.load(page: "1")
+    private func loadCountries() {
+        NetworkModel.load()
+        
         
 //        Context.networkRequest(forPage: requestPage.description).startWithResult { result in
 //            self.refreshControl!.endRefreshing()
