@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class CountriesViewController: UIViewController, ViewControllerRootView, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Accessors
@@ -19,7 +18,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     var requestPage = 1
     
-    var countries = [Country]()
+    var countries: Array<Country>?
     
     var tableView: UITableView {
         return self.rootView.tabelView
@@ -31,12 +30,11 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         super.viewDidLoad()
         self.addRefreshControl()
         self.registerCellWithIdentifier(identifier: String(describing: CountriesViewCell.self))
-        self.loadCountries()
+        self.loadCounties()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
     
     // MARK: - Private
@@ -50,22 +48,27 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     @objc private func refreshView() {
         self.requestPage = defaultPage()
-        self.loadCountries() // need remove all objects from cache
+        DatabaseController.deleteAll(entityType: Country.self)
+        self.loadCounties()
+        self.refreshControl?.endRefreshing()
+    }
+    
+    private func addObjects(objects: Array<Country>) {
+        self.countries = objects
+        self.tableView.reloadData()
+    }
+    
+    private func loadCounties(forPage: Int = 1, primaryLoad: Bool = true) {
+        if primaryLoad == true {
+            DatabaseController.deleteAll(entityType: Country.self)
+        }
+        
+        let stringPage = String(forPage)
+        NetworkModel.load(page: stringPage, block: addObjects)
     }
     
     private func defaultPage() -> Int {
         return 1
-    }
-    
-    private func loadCountries() {
-        NetworkModel.load()
-        
-        
-//        Context.networkRequest(forPage: requestPage.description).startWithResult { result in
-//            self.refreshControl!.endRefreshing()
-//            self.countries.appendContentsOf(result.value!)
-//            self.rootView.tabelView.reloadData()
-//        }
     }
     
     private func registerCellWithIdentifier(identifier: String) {
@@ -76,13 +79,13 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.countries.count
+        return self.countries?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CountriesViewCell.description()) as! CountriesViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesViewCell.self)) as! CountriesViewCell
         
-        cell.fillWithObject(object: self.countries[indexPath.row])
+        cell.fillWithObject(object: (self.countries?[indexPath.row])!)
         return cell
         
     }
@@ -93,13 +96,13 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let section = tableView.numberOfSections - 1
-//        let lastRow = tableView.numberOfRows(inSection: section) - 1
-//        
-//        if indexPath.row == lastRow {
-//            self.requestPage += 1
-//            self.load()
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let section = tableView.numberOfSections - 1
+        let lastRow = tableView.numberOfRows(inSection: section) - 1
+        
+        if indexPath.row == lastRow {
+            self.requestPage += 1
+            self.loadCounties(forPage: self.requestPage, primaryLoad: false)
+        }
+    }
 }

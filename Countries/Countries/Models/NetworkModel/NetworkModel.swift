@@ -14,7 +14,7 @@ let requestPage = "&page="
 
 class NetworkModel {
     
-    static func load(perPage: String = "15", page: String = "1") {
+    static func load(perPage: String = "30", page: String, block: @escaping (Array<Country>) -> ()) {
 
         let requestURL = requestedURL + perPage + requestFormat + requestPage + page
         let url = URL(string: requestURL)
@@ -27,11 +27,21 @@ class NetworkModel {
             if error == nil {
                 do{
                     let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments)
-                    let objects = ParsingModel.parsJSONToArray(json: json as! Array)
-                    print(objects as Any)
+                    let array = ParsingModel.parsJSONCountries(json: json as! Array<Any>)
+                    
+                    DispatchQueue.main.async {
+                        block(array)
+                    }
+
                 }catch {
                     print("Error with Json: \(error)")
                 }
+            }
+            
+            let httpResponse = response as! HTTPURLResponse
+            let statusCode = httpResponse.statusCode
+            if statusCode == 200 {
+                print("Data has been loaded successfully")
             }
         })
         
@@ -39,16 +49,3 @@ class NetworkModel {
     }
 
 }
-
-
-//            let httpResponse = response as! HTTPURLResponse
-//            let statusCode = httpResponse.statusCode
-
-//            if response != nil {
-//                print("Error: did not receive data")
-//            }
-//
-//            if error != nil {
-//                print("error calling GET on /todos/1")
-//                print(error as Any)
-//            }

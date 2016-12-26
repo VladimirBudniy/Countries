@@ -11,30 +11,20 @@ import CoreData
 
 class ParsingModel {
     
-    static func parsJSONToArray(json: Array<Any>) -> [Country]? {
-
-        var array = Array<Any>()
-        for dictionary in json {
-            <#code#>
+    static func parsJSONCountries(json: Array<Any>) -> Array<Country> {
+        let array = json[1] as! Array<Dictionary<String, Any>>
+        let context = DatabaseController.getContext()
+        let entityName:String = String(describing: Country.self)
+        for dictionary in array {
+            let capital = dictionary["capitalCity"] as! String?  /// костыль!!!!!!!!!!!! ////////////////////////////////////////////////
+            if capital != "" {
+                let country = DatabaseController.createEntityIn(context: context, name: entityName) as! Country
+                country.countrieName = dictionary["name"] as! String?
+                country.capitalCity = dictionary["capitalCity"] as! String?
+            }
         }
-        
-//        NSMutableArray *array = [NSMutableArray array];
-//        for (NSDictionary *dictionary in object) {
-//            NSString *IDKey = [dictionary valueForKey:kVBIDKey];
-//            VBDataUser *friend = [VBDataUser objectWithID:IDKey];
-//            friend.first_name = [dictionary valueForKey:kVBFistNameKey];
-//            friend.last_name = [dictionary valueForKey:kVBLastNameKey];
-//            friend.urlString = [dictionary valueForKeyPath:kVBPictureURLPathKey];
-//            
-//            [array addObject:friend];
-//        }
-//        
-//        return array;
-        
-        return nil
+        DatabaseController.saveContext()
+
+        return DatabaseController.fetchEntityIn(context: context, type: Country.self)
     }
-    
-    
-    
-    
 }

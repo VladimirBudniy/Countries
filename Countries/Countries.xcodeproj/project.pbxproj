@@ -22,6 +22,7 @@
 		CF49ABB01E0D7647006A6496 /* ViewControllerRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABAE1E0D7647006A6496 /* ViewControllerRootView.swift */; };
 		CF49ABB31E0D76F8006A6496 /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABB21E0D76F8006A6496 /* NetworkModel.swift */; };
 		CF49ABB91E0D7D38006A6496 /* ParsingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABB81E0D7D38006A6496 /* ParsingModel.swift */; };
+		CF851EA51E110B680015850E /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF851EA41E110B680015850E /* DatabaseController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		CF49ABAE1E0D7647006A6496 /* ViewControllerRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRootView.swift; sourceTree = "<group>"; };
 		CF49ABB21E0D76F8006A6496 /* NetworkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
 		CF49ABB81E0D7D38006A6496 /* ParsingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsingModel.swift; sourceTree = "<group>"; };
+		CF851EA41E110B680015850E /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 			children = (
 				CF49ABA91E0D73EF006A6496 /* Country+CoreDataClass.swift */,
 				CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */,
+				CF851EA41E110B680015850E /* DatabaseController.swift */,
 			);
 			path = Country;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				CF49AB771E0D7009006A6496 /* AppDelegate.swift in Sources */,
 				CF49ABB01E0D7647006A6496 /* ViewControllerRootView.swift in Sources */,
 				CF49ABAB1E0D73EF006A6496 /* Country+CoreDataClass.swift in Sources */,
+				CF851EA51E110B680015850E /* DatabaseController.swift in Sources */,
 				CF49AB9E1E0D7220006A6496 /* CountriesView.swift in Sources */,
 				CF49ABB31E0D76F8006A6496 /* NetworkModel.swift in Sources */,
 				CF49ABAC1E0D73EF006A6496 /* Country+CoreDataProperties.swift in Sources */,
@@ -401,6 +405,7 @@
 				CF49AB8A1E0D7009006A6496 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

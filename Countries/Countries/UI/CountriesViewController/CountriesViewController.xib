@@ -30,16 +30,16 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="PGu-Y8-pp4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="387-MC-mfw"/>
-                <constraint firstAttribute="trailing" secondItem="PGu-Y8-pp4" secondAttribute="trailing" id="J3e-xg-Rye"/>
-                <constraint firstItem="PGu-Y8-pp4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Nps-bI-gJm"/>
-                <constraint firstAttribute="bottom" secondItem="PGu-Y8-pp4" secondAttribute="bottom" id="Ub6-sY-YHa"/>
+                <constraint firstAttribute="trailing" secondItem="PGu-Y8-pp4" secondAttribute="trailing" id="4mW-Sb-hse"/>
+                <constraint firstItem="PGu-Y8-pp4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VgI-IV-lgH"/>
+                <constraint firstItem="PGu-Y8-pp4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cf9-Ua-emG"/>
+                <constraint firstAttribute="bottom" secondItem="PGu-Y8-pp4" secondAttribute="bottom" id="mbW-pW-pby"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="tabelView" destination="PGu-Y8-pp4" id="Mci-Yr-oai"/>
             </connections>
-            <point key="canvasLocation" x="-247" y="-8"/>
+            <point key="canvasLocation" x="-293" y="-71"/>
         </view>
     </objects>
 </document>
