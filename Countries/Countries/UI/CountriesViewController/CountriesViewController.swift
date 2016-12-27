@@ -63,7 +63,6 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     @objc private func refreshView() {
 //        self.requestPage = defaultPage()
-        DatabaseController.deleteAll(entityType: Country.self)
         self.loadCounties()
         self.refreshControl?.endRefreshing()
     }
