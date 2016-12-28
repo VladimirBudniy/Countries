@@ -1,5 +1,5 @@
 //
-//  CountriesViewCell.swift
+//  CountriesPortraitViewCell.swift
 //  LoadingView
 //
 //  Created by Vladimir Budniy on 12/1/16.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class CountriesViewCell: UITableViewCell {
-
+class CountriesPortraitViewCell: UITableViewCell {
+    
     // MARK: - Accessors
     
     @IBOutlet weak var countrieName: UILabel!
@@ -20,13 +20,13 @@ class CountriesViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
-
-     // MARK: - Public
+    
+    // MARK: - Public
     
     func fillWithObject(object: Country) {
         self.countrieName.text = object.countrieName

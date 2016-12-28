@@ -2,7 +2,7 @@
 //  Country+CoreDataProperties.swift
 //  Countries
 //
-//  Created by Vladimir Budniy on 12/23/16.
+//  Created by Vladimir Budniy on 12/27/16.
 //  Copyright © 2016 Vladimir Budniy. All rights reserved.
 //
 
@@ -16,7 +16,12 @@ extension Country {
         return NSFetchRequest<Country>(entityName: "Country");
     }
 
-    @NSManaged public var countrieName: String?
     @NSManaged public var capitalCity: String?
+    @NSManaged public var countrieName: String?
+    @NSManaged public var timezones: String?
+    @NSManaged public var regionName: String?
+    @NSManaged public var populationQty: Int64
+    @NSManaged public var nativeName: String?
+    @NSManaged public var currencies: String?
 
 }
