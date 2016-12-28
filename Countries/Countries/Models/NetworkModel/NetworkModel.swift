@@ -14,41 +14,7 @@ let requestPage = "&page="
 
 class NetworkModel {
     
-//    static func loadCountries(perPage: String = "30", page: String, block: @escaping (Array<Country>) -> ()) {
-//
-//        let requestURL = requestedURL + perPage + requestFormat + requestPage + page
-//        let url = URL(string: requestURL)
-//        let request = URLRequest.init(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
-//        
-//        let config = URLSessionConfiguration.default
-//        let session = URLSession(configuration: config)
-//
-//        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-//            if error == nil {
-//                do{
-//                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments)
-//                    let array = ParsingModel.parsJSONCountries(json: json as! Array<Any>)
-//                    
-//                    DispatchQueue.main.async {
-//                        block(array)
-//                    }
-//
-//                }catch {
-//                    print("Error with Json: \(error)")
-//                }
-//            }
-//            
-//            let httpResponse = response as! HTTPURLResponse
-//            let statusCode = httpResponse.statusCode
-//            if statusCode == 200 {
-//                print("Data has been loaded successfully")
-//            }
-//        })
-//        
-//        task.resume()
-//    }
-    
-    static func loadDetailCountries(block: @escaping (Array<Country>) -> ()) {
+    static func loadCountries(block: @escaping (Array<Country>) -> ()) {
         let requestURL = "https://restcountries.eu/rest/v1/all"
         let url = URL(string: requestURL)
         let request = URLRequest.init(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)

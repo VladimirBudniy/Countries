@@ -15,6 +15,8 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     typealias RootViewType = CountriesView
     
     var refreshControl: UIRefreshControl?
+
+    var landscapeOrientation: Bool = false
     
     var countries: Array<Country>?
     
@@ -28,6 +30,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         super.viewDidLoad()
         self.addRefreshControl()
         self.registerCellWithIdentifier(identifier: String(describing: CountriesPortraitViewCell.self))
+        self.registerCellWithIdentifier(identifier: String(describing: CountriesLandscapeViewCell.self))
         self.loadCounties()
     }
     
@@ -37,10 +40,18 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if UIDevice.current.orientation.isLandscape {
-            self.navigationController?.pushViewController(CountryDetailViewController(), animated: true)
+            self.landscapeOrientation = true
+            self.tableView.rowHeight = 70
+            self.tableView.reloadData()
             print("Landscape")
+        } else {
+            self.landscapeOrientation = false
+            self.tableView.rowHeight = 44
+            self.tableView.reloadData()
+            print("Portrait")
         }
     }
+
     
     // MARK: - Private
     
@@ -63,7 +74,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
 
     private func loadCounties() {
         DatabaseController.deleteAll(entityType: Country.self)
-        NetworkModel.loadDetailCountries(block: addObjects)
+        NetworkModel.loadCountries(block: addObjects)
     }
     
     private func registerCellWithIdentifier(identifier: String) {
@@ -78,10 +89,17 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesPortraitViewCell.self)) as! CountriesPortraitViewCell
-        cell.fillWithObject(object: (self.countries?[indexPath.row])!)
-        
-        return cell
+        if self.landscapeOrientation == true {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesLandscapeViewCell.self)) as! CountriesLandscapeViewCell
+            cell.fillWithObject(object: (self.countries?[indexPath.row])!)
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesPortraitViewCell.self)) as! CountriesPortraitViewCell
+            cell.fillWithObject(object: (self.countries?[indexPath.row])!)
+            
+            return cell
+        }
     }
     
     // MARK: - UITableViewDelegate
