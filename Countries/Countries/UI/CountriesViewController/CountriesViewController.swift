@@ -14,11 +14,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     typealias RootViewType = CountriesView
     
-    var landscapeOrientation: Bool = false
-    
     var refreshControl: UIRefreshControl?
-    
-    var requestPage = 1
     
     var countries: Array<Country>?
     
@@ -32,23 +28,17 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         super.viewDidLoad()
         self.addRefreshControl()
         self.registerCellWithIdentifier(identifier: String(describing: CountriesPortraitViewCell.self))
-        self.registerCellWithIdentifier(identifier: String(describing: CountriesLandscapeViewCell.self))
         self.loadCounties()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if UIDevice.current.orientation.isLandscape {
-            self.landscapeOrientation = true
-            self.tableView.reloadData()
+            self.navigationController?.pushViewController(CountryDetailViewController(), animated: true)
             print("Landscape")
-        } else {
-            self.landscapeOrientation = false
-            self.tableView.reloadData()
-            print("Portrait")
         }
     }
     
@@ -62,7 +52,6 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     }
     
     @objc private func refreshView() {
-//        self.requestPage = defaultPage()
         self.loadCounties()
         self.refreshControl?.endRefreshing()
     }
@@ -71,24 +60,11 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         self.countries = objects
         self.tableView.reloadData()
     }
-    
-//    private func loadCounties(forPage: Int = 1, primaryLoad: Bool = true) {
-//        if primaryLoad == true {
-//            DatabaseController.deleteAll(entityType: Country.self)
-//        }
-//        
-//        let stringPage = String(forPage)
-//        NetworkModel.loadCountries(page: stringPage, block: addObjects)
-//    }
-    
+
     private func loadCounties() {
         DatabaseController.deleteAll(entityType: Country.self)
-        NetworkModel.loadCountries(block: addObjects)
+        NetworkModel.loadDetailCountries(block: addObjects)
     }
-    
-//    private func defaultPage() -> Int {
-//        return 1
-//    }
     
     private func registerCellWithIdentifier(identifier: String) {
         self.tableView.register(UINib(nibName: identifier, bundle: nil),
@@ -102,17 +78,10 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.landscapeOrientation == true {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesLandscapeViewCell.self)) as! CountriesLandscapeViewCell
-            cell.fillWithObject(object: (self.countries?[indexPath.row])!)
-            
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesPortraitViewCell.self)) as! CountriesPortraitViewCell
-            cell.fillWithObject(object: (self.countries?[indexPath.row])!)
-            
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesPortraitViewCell.self)) as! CountriesPortraitViewCell
+        cell.fillWithObject(object: (self.countries?[indexPath.row])!)
+        
+        return cell
     }
     
     // MARK: - UITableViewDelegate
@@ -120,14 +89,4 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let section = tableView.numberOfSections - 1
-//        let lastRow = tableView.numberOfRows(inSection: section) - 1
-//        
-//        if indexPath.row == lastRow {
-//            self.requestPage += 1
-//            self.loadCounties(forPage: self.requestPage, primaryLoad: false)
-//        }
-//    }
 }

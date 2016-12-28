@@ -16,7 +16,7 @@ class ParsingModel {
 //        let context = DatabaseController.getContext()
 //        let entityName:String = String(describing: Country.self)
 //        for dictionary in array {
-//            let capital = dictionary["capitalCity"] as! String?  /// костыль!!!!!!!!!!!! ////////////////////////////////////////////////
+//            let capital = dictionary["capitalCity"] as! String?
 //            if capital != "" {
 //                let country = DatabaseController.createEntityIn(context: context, name: entityName) as! Country
 //                country.countrieName = dictionary["name"] as! String?
@@ -28,7 +28,7 @@ class ParsingModel {
 //        return DatabaseController.fetchEntityIn(context: context, type: Country.self)
 //    }
     
-    static func parsJSONCountries(json: Array<Any>) -> Array<Country> {
+    static func parsJSONCountriesDetails(json: Array<Any>) -> Array<Country> {
         let array = json as! Array<Dictionary<String, Any>>
         let context = DatabaseController.getContext()
         let entityName:String = String(describing: Country.self)
