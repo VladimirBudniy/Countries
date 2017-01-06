@@ -8,31 +8,25 @@
 
 import Foundation
 
-let requestedURL = "http://api.worldbank.org/countries?per_page="
-let requestFormat = "&format=json"
-let requestPage = "&page="
-
 class NetworkModel {
     
-    static func loadCountries(block: @escaping (Array<Country>) -> ()) {
+    static func loadCountries(block: @escaping ([Country]?) -> ()) {
         let requestURL = "https://restcountries.eu/rest/v1/all"
         let url = URL(string: requestURL)
         let request = URLRequest.init(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
         
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-
+        
         let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
             if error == nil {
                 do{
                     let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments)
-                    let array = ParsingModel.parsJSONCountriesDetails(json: json as! Array<Any>)
-                    
+                    Country.parsJSONCountriesDetails(json: json as! Array<Any>)
                     DispatchQueue.main.async {
-                        block(array)
+                        block(DatabaseController.sharedInstance.fetchEntity(type: Country.self))
                     }
-                    
-                }catch {
+                } catch {
                     print("Error with Json: \(error)")
                 }
             }
@@ -46,5 +40,5 @@ class NetworkModel {
         
         task.resume()
     }
-
+    
 }

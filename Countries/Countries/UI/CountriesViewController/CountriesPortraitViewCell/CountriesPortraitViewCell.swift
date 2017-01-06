@@ -8,12 +8,10 @@
 
 import UIKit
 
-class CountriesPortraitViewCell: UITableViewCell {
+class CountriesPortraitViewCell: CountryViewCell {
     
-    // MARK: - Accessors
-    
-    @IBOutlet weak var countrieName: UILabel!
-    @IBOutlet weak var capitalName: UILabel!
+    @IBOutlet var countrieName: UILabel?
+    @IBOutlet var capitalName: UILabel?
     
     // MARK: - Initialization
     
@@ -21,16 +19,11 @@ class CountriesPortraitViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-    }
-    
     // MARK: - Public
     
-    func fillWithObject(object: Country) {
-        self.countrieName.text = object.countrieName
-        self.capitalName.text = object.capitalCity
+    override func fillWithObject(object: Country) {
+        self.countrieName?.text = object.countrieName
+        self.capitalName?.text = object.capitalCity
     }
     
 }

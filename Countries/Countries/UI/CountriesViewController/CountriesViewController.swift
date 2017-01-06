@@ -14,13 +14,9 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     typealias RootViewType = CountriesView
     
-    var refreshControl: UIRefreshControl?
-
-    var landscapeOrientation: Bool = false
+    var countries: [Country]?
     
-    var countries: Array<Country>?
-    
-    var tableView: UITableView {
+    var tableView: UITableView? {
         return self.rootView.tabelView
     }
     
@@ -29,8 +25,8 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addRefreshControl()
-        self.registerCellWithIdentifier(identifier: String(describing: CountriesPortraitViewCell.self))
-        self.registerCellWithIdentifier(identifier: String(describing: CountriesLandscapeViewCell.self))
+        self.registerCellsWith(identifiers: [String(describing: CountriesPortraitViewCell.self),
+                                             String(describing: CountriesLandscapeViewCell.self)])
         self.loadCounties()
     }
     
@@ -40,46 +36,14 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if UIDevice.current.orientation.isLandscape {
-            self.landscapeOrientation = true
-            self.tableView.rowHeight = 70
-            self.tableView.reloadData()
+            self.tableView?.rowHeight = 70
             print("Landscape")
         } else {
-            self.landscapeOrientation = false
-            self.tableView.rowHeight = 44
-            self.tableView.reloadData()
+            self.tableView?.rowHeight = 44
             print("Portrait")
         }
-    }
-
-    
-    // MARK: - Private
-    
-    private func addRefreshControl() {
-        let control = UIRefreshControl()
-        control.addTarget(self, action: #selector(refreshView), for: UIControlEvents.valueChanged)
-        self.rootView.tabelView.addSubview(control)
-        self.refreshControl = control
-    }
-    
-    @objc private func refreshView() {
-        self.loadCounties()
-        self.refreshControl?.endRefreshing()
-    }
-    
-    private func addObjects(objects: Array<Country>) {
-        self.countries = objects
-        self.tableView.reloadData()
-    }
-
-    private func loadCounties() {
-        DatabaseController.deleteAll(entityType: Country.self)
-        NetworkModel.loadCountries(block: addObjects)
-    }
-    
-    private func registerCellWithIdentifier(identifier: String) {
-        self.tableView.register(UINib(nibName: identifier, bundle: nil),
-                                   forCellReuseIdentifier: identifier)
+        
+        self.tableView?.reloadData()
     }
     
     // MARK: - UITableViewDataSource
@@ -89,22 +53,54 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if self.landscapeOrientation == true {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesLandscapeViewCell.self)) as! CountriesLandscapeViewCell
-            cell.fillWithObject(object: (self.countries?[indexPath.row])!)
-            
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountriesPortraitViewCell.self)) as! CountriesPortraitViewCell
-            cell.fillWithObject(object: (self.countries?[indexPath.row])!)
-            
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.indentifierFor(orientation: UIDevice.current.orientation)) as! CountryViewCell
+        cell.fillWithObject(object: (self.countries?[indexPath.row])!)
+        
+        return cell
     }
     
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+    }
+    
+    // MARK: - Private
+    
+    private func addRefreshControl() {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshView), for: UIControlEvents.valueChanged)
+        self.tableView?.refreshControl = control
+    }
+    
+    @objc private func refreshView() {
+        self.loadCounties()
+    }
+    
+    private func addObjects(objects: [Country]?) {
+        self.countries = objects
+        self.tableView?.refreshControl?.endRefreshing()
+        self.tableView?.reloadData()
+    }
+    
+    private func loadCounties() {
+        DatabaseController.sharedInstance.deleteAll(entityType: Country.self)
+        NetworkModel.loadCountries(block: addObjects)
+    }
+    
+    private func registerCellsWith(identifiers: [String]) {
+        for nibName in identifiers {
+            self.tableView?.register(UINib(nibName: nibName, bundle: nil),
+                                     forCellReuseIdentifier: nibName)
+        }
+    }
+    
+    private func indentifierFor(orientation: UIDeviceOrientation) -> String {
+        switch orientation {
+        case .landscapeLeft, .landscapeRight:
+            return String(describing: CountriesLandscapeViewCell.self)
+        default:
+            return String(describing: CountriesPortraitViewCell.self)
+        }
     }
 }

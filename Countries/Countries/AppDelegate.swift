@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        DatabaseController.saveContext()
+        DatabaseController.sharedInstance.saveContext()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        DatabaseController.saveContext()
+        DatabaseController.sharedInstance.saveContext()
     }
 }
 

@@ -9,6 +9,6 @@
 import UIKit
 
 class CountriesView: UIView {
-    @IBOutlet weak var tabelView: UITableView!
+    @IBOutlet var tabelView: UITableView?
 
 }

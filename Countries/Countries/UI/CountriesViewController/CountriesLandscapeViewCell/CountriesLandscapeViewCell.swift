@@ -8,35 +8,33 @@
 
 import UIKit
 
-class CountriesLandscapeViewCell: UITableViewCell {
+class CountriesLandscapeViewCell: CountryViewCell {
     
-    @IBOutlet weak var countrieName: UILabel!
-    @IBOutlet weak var capitalName: UILabel!
-    @IBOutlet weak var timezones: UILabel!
+    @IBOutlet var countrieName: UILabel?
+    @IBOutlet var capitalName: UILabel?
+    @IBOutlet var timezones: UILabel?
     
-    @IBOutlet weak var regionName: UILabel!
-    @IBOutlet weak var populationQty: UILabel!
-    @IBOutlet weak var nativeName: UILabel!
-    @IBOutlet weak var currencies: UILabel!
+    @IBOutlet var regionName: UILabel?
+    @IBOutlet var populationQty: UILabel?
+    @IBOutlet var nativeName: UILabel?
+    @IBOutlet var currencies: UILabel?
 
+    // MARK: - Initialization
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
     
     // MARK: - Public
     
-    func fillWithObject(object: Country) {
-        self.countrieName.text = object.countrieName
-        self.capitalName.text = object.capitalCity
-        self.timezones.text = object.timezones
-        self.regionName.text = object.regionName
-        self.nativeName.text = object.nativeName
-        self.currencies.text = object.currencies
-        self.populationQty.text = object.populationQty.stringFormatedWithSepator
+    override func fillWithObject(object: Country) {
+        self.countrieName?.text = object.countrieName
+        self.capitalName?.text = object.capitalCity
+        self.timezones?.text = object.timezones
+        self.regionName?.text = object.regionName
+        self.nativeName?.text = object.nativeName
+        self.currencies?.text = object.currencies
+        self.populationQty?.text = object.populationQty.stringFormatedWithSepator
     }
     
 }

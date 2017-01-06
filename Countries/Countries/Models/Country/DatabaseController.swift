@@ -11,24 +11,28 @@ import CoreData
 
 class DatabaseController {
     
+    static let sharedInstance = DatabaseController()
+    
     private init() {
         
     }
     
-    class func getContext() -> NSManagedObjectContext {
+    func getContext() -> NSManagedObjectContext {
         return self.persistentContainer.viewContext
     }
+    
+    func getBackgroundContext() -> NSManagedObjectContext {
+        return self.persistentContainer.newBackgroundContext()
+    }
 
-    class func fetchEntity<T: NSManagedObject>(type: T.Type)  -> Array<T> {
+    func fetchEntity<T: NSManagedObject>(type: T.Type)  -> Array<T> {
         return self.fetchEntityIn(context: self.getContext(), type: type)
     }
     
-    class func fetchEntityIn<T: NSManagedObject>(context: NSManagedObjectContext, type: T.Type) -> Array<T> {
-        
-        let fetchRequest: NSFetchRequest<T> = T.fetchRequest() as! NSFetchRequest<T> /////////////убарть и сделать универсальным
+    func fetchEntityIn<T: NSManagedObject>(context: NSManagedObjectContext, type: T.Type) -> Array<T> {
+        let fetchRequest: NSFetchRequest<T> = T.fetchRequest() as! NSFetchRequest<T>
         let descriptor = NSSortDescriptor(key: "countrieName", ascending: true)
         fetchRequest.sortDescriptors = [descriptor]
-
         do {
             let result = try context.fetch(fetchRequest)
             return result
@@ -39,7 +43,7 @@ class DatabaseController {
         }
     }
     
-    class func deleteAll<T: NSManagedObject>(entityType: T.Type) {
+    func deleteAll<T: NSManagedObject>(entityType: T.Type) {
         let context = self.getContext()
         let objects = self.fetchEntityIn(context: context, type: entityType)
         for object in objects {
@@ -47,13 +51,13 @@ class DatabaseController {
         }
     }
     
-    class func createEntityIn(context: NSManagedObjectContext, name: String) -> NSManagedObject {
+    func createEntityIn(context: NSManagedObjectContext, name: String) -> NSManagedObject {
         return NSEntityDescription.insertNewObject(forEntityName: name, into: context)
     }
     
     // MARK: - Core Data stack
     
-    static var persistentContainer: NSPersistentContainer = {
+    var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Countries")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -65,7 +69,7 @@ class DatabaseController {
     
     // MARK: - Core Data Saving support
     
-    class func saveContext () {
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -76,4 +80,16 @@ class DatabaseController {
             }
         }
     }
+    
+    func saveWithContext(context: NSManagedObjectContext) {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
 }
