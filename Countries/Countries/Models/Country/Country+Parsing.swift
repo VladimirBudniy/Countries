@@ -16,17 +16,13 @@ extension Country {
         let entityName:String = String(describing: Country.self)
         for dictionary in array {
             let country = DatabaseController.sharedInstance.createEntityIn(context: context, name: entityName) as! Country
-            country.countrieName = dictionary["name"] as? String
-            country.capitalCity = dictionary["capital"] as? String
-            country.nativeName = dictionary["nativeName"] as? String
-            country.populationQty = dictionary["population"] as! Int64
-            country.regionName = dictionary["region"] as? String
-            
-            let arrayTimezones = dictionary["timezones"] as! Array<String>
-            country.timezones = arrayTimezones.joined(separator: " ")
-            
-            let arrayCurrencies = dictionary["timezones"] as! Array<String>
-            country.currencies = arrayCurrencies.joined(separator: " ")
+            country.countrieName = dictionary~~"name"
+            country.capitalCity = dictionary~~"capital"
+            country.nativeName = dictionary~~"nativeName"
+            country.populationQty = dictionary~~"population"
+            country.regionName = dictionary~~"region"
+            country.timezones = dictionary~~~"timezones"
+            country.currencies = dictionary~~~"currencies"
         }
         
         DatabaseController.sharedInstance.saveWithContext(context: context)
