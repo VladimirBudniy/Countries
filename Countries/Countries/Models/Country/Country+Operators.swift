@@ -9,16 +9,38 @@
 import Foundation
 
 infix operator ~~
-infix operator ~~~
+infix operator ~+~
 
-public func ~~<T>(left: Dictionary<String, Any>, right: String) -> T {
-    let value = left[right]
+public func ~+~<T>(JSONObject: Any?, object: String) -> T? {
+    if let JSON = JSONObject as? [String: Any] {
+        
+        let value = JSON[object]
+        if let result = value as? Array<String> {
+            return result.joined(separator: " ") as? T
+            
+        } else if let result = value as? Array<Int> {
+            
+            let value = result.flatMap({ String($0) })
+            return value.joined(separator: " ") as? T
+        } else {
+            return value as? T
+        }
+    }
     
-    return value as! T
+    return object as? T
 }
 
-public func ~~~(left: Dictionary<String, Any>, right: String) -> String {
-    let value: Array<String> = left[right] as! Array<String>
+public func ~~ <T>(left: inout T?, right: Any?) {
+    left = right as? T
     
-    return value.joined(separator: " ")
+    
+    
+    
+//    switch right.mappingType {
+//    case .fromJSON where right.isKeyPresent:
+//        FromJSON.basicType(&left, object: right.value())
+//    case .toJSON:
+//        left >>> right
+//    default: ()
+//    }
 }

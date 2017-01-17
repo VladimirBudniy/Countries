@@ -21,10 +21,6 @@ class DatabaseController {
         return self.persistentContainer.viewContext
     }
     
-    func getBackgroundContext() -> NSManagedObjectContext {
-        return self.persistentContainer.newBackgroundContext()
-    }
-
     func fetchEntity<T: NSManagedObject>(type: T.Type)  -> Array<T> {
         return self.fetchEntityIn(context: self.getContext(), type: type)
     }
@@ -70,7 +66,7 @@ class DatabaseController {
     // MARK: - Core Data Saving support
     
     func saveContext() {
-        let context = persistentContainer.viewContext
+        let context = self.getContext()
         if context.hasChanges {
             do {
                 try context.save()
@@ -80,16 +76,16 @@ class DatabaseController {
             }
         }
     }
-    
-    func saveWithContext(context: NSManagedObjectContext) {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
+//    
+//    func saveWithContext(context: NSManagedObjectContext) {
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//            } catch {
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
+//    
 }
