@@ -13,31 +13,30 @@ extension Country {
     
    static func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @escaping ([Country]?) -> ()) {
         let database = DatabaseController.sharedInstance
-        let mainContext = database.getContext()
+        let mainContext = database.getMainContext()
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = mainContext
         privateContext.perform ({
-            if let arrayCountries = json {
-                for dictioanry in arrayCountries {
-                    let country = database.createEntityIn(context: privateContext, name: String(describing: Country.self)) as? Country
-
-                    country?.countrieName = dictioanry~~"name"
-                    country?.capitalCity = dictioanry~~"capital"
-                    country?.nativeName = dictioanry~~"nativeName"
-                    country?.populationQty = (dictioanry~~"population")!
-                    country?.regionName = dictioanry~~"region"
-                    country?.timezones = dictioanry~~"timezones"
-                    country?.currencies = dictioanry~~"currencies"
+            if let countries = json {
+                for item in countries {
+                    let country = database.createCountryIn(context: privateContext) as? Country
+                    
+                    country?.countrieName = item~"name"
+                    country?.capitalCity = item~"capital"
+                    country?.nativeName = item~"nativeName"
+                    country?.populationQty = (item~"population")!
+                    country?.regionName = item~"region"
+                    country?.timezones = item~"timezones"
+                    country?.currencies = item~"currencies"
                 }
             }
             do {
                 try privateContext.save()
-                
                 mainContext.performAndWait {
                     do {
                         try mainContext.save()
                         print("Data has been loaded successfully")
-                        block(database.fetchEntity(type: Country.self))
+                        block(database.fetchEntities())
                     } catch {
                         fatalError("Failure to save mainContext: \(error)")
                     }

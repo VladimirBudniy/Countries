@@ -17,16 +17,16 @@ class DatabaseController {
         
     }
     
-    func getContext() -> NSManagedObjectContext {
+    func getMainContext() -> NSManagedObjectContext {
         return self.persistentContainer.viewContext
     }
     
-    func fetchEntity<T: NSManagedObject>(type: T.Type)  -> Array<T> {
-        return self.fetchEntityIn(context: self.getContext(), type: type)
+    func fetchEntities()  -> [Country] {
+        return self.fetchEntitiesIn(context: self.getMainContext(), type: Country.self)
     }
     
-    func fetchEntityIn<T: NSManagedObject>(context: NSManagedObjectContext, type: T.Type) -> Array<T> {
-        let fetchRequest: NSFetchRequest<T> = T.fetchRequest() as! NSFetchRequest<T>
+    func fetchEntitiesIn<T: NSManagedObject>(context: NSManagedObjectContext, type: T.Type) -> Array<T> {
+        let fetchRequest: NSFetchRequest<T> = type.fetchRequest() as! NSFetchRequest<T>
         let descriptor = NSSortDescriptor(key: "countrieName", ascending: true)
         fetchRequest.sortDescriptors = [descriptor]
         do {
@@ -39,16 +39,27 @@ class DatabaseController {
         }
     }
     
+    func fetchEntity<T: NSManagedObject>(context: NSManagedObjectContext, name: String, type: T.Type) -> Country? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+        do {
+            let country = try context.fetch(fetchRequest).first
+            return country as? Country
+        } catch {
+            print("Fetch error: \(error)")
+            return nil
+        }
+    }
+
     func deleteAll<T: NSManagedObject>(entityType: T.Type) {
-        let context = self.getContext()
-        let objects = self.fetchEntityIn(context: context, type: entityType)
+        let context = self.getMainContext()
+        let objects = self.fetchEntitiesIn(context: context, type: entityType)
         for object in objects {
             context.delete(object)
         }
     }
     
-    func createEntityIn(context: NSManagedObjectContext, name: String) -> NSManagedObject {
-        return NSEntityDescription.insertNewObject(forEntityName: name, into: context)
+    func createCountryIn(context: NSManagedObjectContext) -> NSManagedObject {
+        return NSEntityDescription.insertNewObject(forEntityName: String(describing: Country.self), into: context)
     }
     
     // MARK: - Core Data stack
@@ -66,7 +77,7 @@ class DatabaseController {
     // MARK: - Core Data Saving support
     
     func saveContext() {
-        let context = self.getContext()
+        let context = self.getMainContext()
         if context.hasChanges {
             do {
                 try context.save()
@@ -76,16 +87,4 @@ class DatabaseController {
             }
         }
     }
-//    
-//    func saveWithContext(context: NSManagedObjectContext) {
-//        if context.hasChanges {
-//            do {
-//                try context.save()
-//            } catch {
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
-//    
 }

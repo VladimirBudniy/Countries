@@ -8,10 +8,13 @@
 
 import Foundation
 
-infix operator ~~
-infix operator ~+~
+infix operator ~
+infix operator ~?
+infix operator ~|
+infix operator ~||
 
-public func ~~<T>(JSONObject: [String: Any], object: String) -> T? {
+
+public func ~<T>(JSONObject: [String: Any], object: String) -> T? {
     let value = JSONObject[object]
     
     if let result = value as? Array<String> {
@@ -29,10 +32,23 @@ public func ~~<T>(JSONObject: [String: Any], object: String) -> T? {
         for key in keys {
             array.append("\(key) = \(result[key]!)")
         }
+        
         let value = array.joined(separator: ", ")
         
         return value as? T
     }
     
     return value as? T
+}
+
+public func ~?<T>(JSONObject: [String: Any]?, object: String) -> T? {
+    return nil
+}
+
+public func ~|<T>(JSONObject: [String: Any], object: String) -> T? {
+    return nil
+}
+
+public func ~||<T>(JSONObject: [String: Any], object: String) -> T? {
+    return nil
 }
