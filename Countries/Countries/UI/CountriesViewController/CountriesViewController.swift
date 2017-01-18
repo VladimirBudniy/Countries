@@ -85,7 +85,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     private func loadCounties() {
         DatabaseController.sharedInstance.deleteAll(entityType: Country.self)
-        loadCountries(block: addObjects)
+        Country.loadCountries(block: addObjects)
     }
     
     private func registerCellsWith(identifiers: [String]) {

@@ -11,36 +11,28 @@ import Foundation
 infix operator ~~
 infix operator ~+~
 
-public func ~+~<T>(JSONObject: Any?, object: String) -> T? {
-    if let JSON = JSONObject as? [String: Any] {
-        
-        let value = JSON[object]
-        if let result = value as? Array<String> {
-            return result.joined(separator: " ") as? T
-            
-        } else if let result = value as? Array<Int> {
-            
-            let value = result.flatMap({ String($0) })
-            return value.joined(separator: " ") as? T
-        } else {
-            return value as? T
-        }
+public func ~~<T>(JSONObject: [String: Any], object: String) -> T? {
+    let value = JSONObject[object]
+    
+    if let result = value as? Array<String> {
+        return result.joined(separator: " ") as? T
     }
     
-    return object as? T
-}
-
-public func ~~ <T>(left: inout T?, right: Any?) {
-    left = right as? T
+    if let result = value as? Array<Int> {
+        let value = result.flatMap({ String($0) })
+        return value.joined(separator: ", ") as? T
+    }
     
+    if let result = value as? Dictionary<String, Any> {
+        let keys = Array(result.keys)
+        var array = [String]()
+        for key in keys {
+            array.append("\(key) = \(result[key]!)")
+        }
+        let value = array.joined(separator: ", ")
+        
+        return value as? T
+    }
     
-    
-    
-//    switch right.mappingType {
-//    case .fromJSON where right.isKeyPresent:
-//        FromJSON.basicType(&left, object: right.value())
-//    case .toJSON:
-//        left >>> right
-//    default: ()
-//    }
+    return value as? T
 }

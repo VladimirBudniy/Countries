@@ -20,11 +20,19 @@ extension Country {
             if let arrayCountries = json {
                 for dictioanry in arrayCountries {
                     let country = database.createEntityIn(context: privateContext, name: String(describing: Country.self)) as? Country
-                    self.parsing(dictionary: dictioanry, to: country)
+
+                    country?.countrieName = dictioanry~~"name"
+                    country?.capitalCity = dictioanry~~"capital"
+                    country?.nativeName = dictioanry~~"nativeName"
+                    country?.populationQty = (dictioanry~~"population")!
+                    country?.regionName = dictioanry~~"region"
+                    country?.timezones = dictioanry~~"timezones"
+                    country?.currencies = dictioanry~~"currencies"
                 }
             }
             do {
                 try privateContext.save()
+                
                 mainContext.performAndWait {
                     do {
                         try mainContext.save()
@@ -39,24 +47,6 @@ extension Country {
             }
         })
     }
-    
-    
-   static func parsing(dictionary: Dictionary<String, Any>, to country: Country?) {
-        country?.countrieName = dictionary~+~"name"
-        country?.capitalCity = dictionary~+~"capital"
-        country?.nativeName = dictionary~+~"nativeName"
-        country?.populationQty = (dictionary~+~"population")!
-        country?.regionName = dictionary~+~"region"
-        country?.timezones = dictionary~+~"timezones"
-        country?.currencies = dictionary~+~"currencies"
-    
-
-//        country?.countrieName ~~ dictionary["name"]
-//        &country?.populationQty ~~ dictionary["population"]
-//        &country?.timezones ~~ dictionary["timezones"]
-        
-    }
-    
 }
 
 
