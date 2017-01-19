@@ -11,55 +11,59 @@ import CoreData
 
 class DatabaseController {
     
+    let entityName = String(describing: Country.self)
+    
+     // MARK: - Initialization
+    
     static let sharedInstance = DatabaseController()
     
     private init() {
         
     }
     
+     // MARK: - Public
+    
     func getMainContext() -> NSManagedObjectContext {
         return self.persistentContainer.viewContext
     }
     
-    func fetchEntities()  -> [Country] {
-        return self.fetchEntitiesIn(context: self.getMainContext(), type: Country.self)
-    }
-    
-    func fetchEntitiesIn<T: NSManagedObject>(context: NSManagedObjectContext, type: T.Type) -> Array<T> {
-        let fetchRequest: NSFetchRequest<T> = type.fetchRequest() as! NSFetchRequest<T>
-        let descriptor = NSSortDescriptor(key: "countrieName", ascending: true)
-        fetchRequest.sortDescriptors = [descriptor]
+    func findEntities() -> [Country]? {
+        let fetchRequest: NSFetchRequest = Country.fetchRequest()
         do {
-            let result = try context.fetch(fetchRequest)
-            return result
+            let country = try self.getMainContext().fetch(fetchRequest)
+            return country
         } catch {
-            let array:Array<T> = []
-            print("Fetch error: \(error)")
-            return array
+            return nil
         }
     }
     
-    func fetchEntity<T: NSManagedObject>(context: NSManagedObjectContext, name: String, type: T.Type) -> Country? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+    func findEntity(in context: NSManagedObjectContext, predicate: String? = nil) -> NSManagedObject? {
+        let fetchRequest: NSFetchRequest = Country.fetchRequest()
+        let predicate = NSPredicate(format: "countrieName = %@", predicate!)
+        fetchRequest.predicate = predicate
         do {
-            let country = try context.fetch(fetchRequest).first
-            return country as? Country
+            let country = try context.fetch(fetchRequest)
+            return country.first
         } catch {
             print("Fetch error: \(error)")
             return nil
         }
     }
 
-    func deleteAll<T: NSManagedObject>(entityType: T.Type) {
-        let context = self.getMainContext()
-        let objects = self.fetchEntitiesIn(context: context, type: entityType)
-        for object in objects {
-            context.delete(object)
+    func findOrCreateEntity(context: NSManagedObjectContext, predicate: String?) -> NSManagedObject? {
+        let result = self.findEntity(in: context, predicate: predicate)
+        if let country = result {
+            return country
+        } else {
+            return NSEntityDescription.insertNewObject(forEntityName: self.entityName, into: context)
         }
     }
     
-    func createCountryIn(context: NSManagedObjectContext) -> NSManagedObject {
-        return NSEntityDescription.insertNewObject(forEntityName: String(describing: Country.self), into: context)
+    func deleteAll() {
+        let objects = self.findEntities()
+        for object in objects! {
+            self.getMainContext().delete(object)
+        }
     }
     
     // MARK: - Core Data stack
@@ -71,6 +75,7 @@ class DatabaseController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
         return container
     }()
     

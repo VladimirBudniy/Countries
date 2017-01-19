@@ -18,8 +18,8 @@
 		CF49ABA21E0D7220006A6496 /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF49AB9D1E0D7220006A6496 /* CountriesViewController.xib */; };
 		CF49ABAB1E0D73EF006A6496 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABA91E0D73EF006A6496 /* Country+CoreDataClass.swift */; };
 		CF49ABAC1E0D73EF006A6496 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */; };
-		CF5EF9231E1F9711003278CF /* Country+Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5EF9221E1F9711003278CF /* Country+Parsing.swift */; };
 		CF5EF9261E1FE166003278CF /* CountryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5EF9251E1FE166003278CF /* CountryViewCell.swift */; };
+		CF7902661E2FC145004C7C07 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7902651E2FC145004C7C07 /* Parser.swift */; };
 		CF851EA51E110B680015850E /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF851EA41E110B680015850E /* DatabaseController.swift */; };
 		CFA554321E24EBC4008F3CC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA5542F1E24EBC4008F3CC9 /* AlertViewController.swift */; };
 		CFA554331E24EBC4008F3CC9 /* ViewControllerRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */; };
@@ -44,8 +44,8 @@
 		CF49AB9D1E0D7220006A6496 /* CountriesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
 		CF49ABA91E0D73EF006A6496 /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		CF5EF9221E1F9711003278CF /* Country+Parsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+Parsing.swift"; sourceTree = "<group>"; };
 		CF5EF9251E1FE166003278CF /* CountryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryViewCell.swift; sourceTree = "<group>"; };
+		CF7902651E2FC145004C7C07 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		CF851EA41E110B680015850E /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 		CFA5542F1E24EBC4008F3CC9 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRootView.swift; sourceTree = "<group>"; };
@@ -140,6 +140,7 @@
 		CF49ABA31E0D73C8006A6496 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CF7902641E2FC145004C7C07 /* Parser */,
 				CF49ABA41E0D73D3006A6496 /* Country */,
 			);
 			path = Models;
@@ -152,7 +153,6 @@
 				CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */,
 				CF851EA41E110B680015850E /* DatabaseController.swift */,
 				CFE541141E2E73AB00DC1E8E /* Country+Network.swift */,
-				CF5EF9221E1F9711003278CF /* Country+Parsing.swift */,
 				CFA554341E24EC36008F3CC9 /* Country+Operators.swift */,
 			);
 			path = Country;
@@ -164,6 +164,14 @@
 				CF5EF9251E1FE166003278CF /* CountryViewCell.swift */,
 			);
 			path = CountryViewCell;
+			sourceTree = "<group>";
+		};
+		CF7902641E2FC145004C7C07 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				CF7902651E2FC145004C7C07 /* Parser.swift */,
+			);
+			path = Parser;
 			sourceTree = "<group>";
 		};
 		CFA5542E1E24EBC4008F3CC9 /* Protocols */ = {
@@ -270,6 +278,7 @@
 				CF49AB7F1E0D7009006A6496 /* Countries.xcdatamodeld in Sources */,
 				CFA554321E24EBC4008F3CC9 /* AlertViewController.swift in Sources */,
 				CF08436B1E13B37900C1F3A7 /* CountriesLandscapeViewCell.swift in Sources */,
+				CF7902661E2FC145004C7C07 /* Parser.swift in Sources */,
 				CF49ABA11E0D7220006A6496 /* CountriesViewController.swift in Sources */,
 				CF49AB771E0D7009006A6496 /* AppDelegate.swift in Sources */,
 				CF5EF9261E1FE166003278CF /* CountryViewCell.swift in Sources */,
@@ -279,7 +288,6 @@
 				CFA554331E24EBC4008F3CC9 /* ViewControllerRootView.swift in Sources */,
 				CF851EA51E110B680015850E /* DatabaseController.swift in Sources */,
 				CF49AB9E1E0D7220006A6496 /* CountriesView.swift in Sources */,
-				CF5EF9231E1F9711003278CF /* Country+Parsing.swift in Sources */,
 				CFBC79071E12706D007C7060 /* CountriesPortraitViewCell.swift in Sources */,
 				CF49ABAC1E0D73EF006A6496 /* Country+CoreDataProperties.swift in Sources */,
 			);

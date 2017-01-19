@@ -1,5 +1,5 @@
 //
-//  NetworkModel.swift
+//  Parser.swift
 //  Countries
 //
 //  Created by Vladimir Budniy on 1/18/17.
@@ -9,7 +9,8 @@
 import Foundation
 import CoreData
 
-var array: [Country]?
+var array = [Country]()
+var currentCountry: Country?
 
 public func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @escaping ([Country]?) -> ()) {
     let database = DatabaseController.sharedInstance
@@ -19,15 +20,17 @@ public func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @e
     privateContext.perform ({
         if let countries = json {
             for item in countries {
-                let country = database.createCountryIn(context: privateContext) as? Country // fetch entity
                 
-                //                    country?.countrieName = item~"name"
-                //                    country?.capitalCity = item~"capital"
-                country?.nativeName = item~"nativeName"
-                country?.populationQty = (item~"population")!
-                country?.regionName = item~"region"
-                country?.timezones = item~"timezones"
-                country?.currencies = item~"currencies"
+                let countryName: String? = item~?"name"
+                let country = database.findEntity(in: privateContext, predicate: countryName) as? Country //////////////////////
+                
+                country?.nativeName = item~?"nativeName"
+                country?.populationQty = item~"population"
+                country?.regionName = item~?"region"
+                country?.timezones = item~?"timezones"
+                country?.currencies = item~?"currencies"
+                
+                currentCountry = country
             }
         }
         do {
@@ -36,7 +39,11 @@ public func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @e
                 do {
                     try mainContext.save()
                     print("Data has been loaded successfully")
-                    block(database.fetchEntities())
+                    
+//                    let country = database.findEntity(in: mainContext, countryName: currentCountry?.countrieName) as? Country
+//                    block(database.fetchEntities())
+                    
+                    
                 } catch {
                     fatalError("Failure to save mainContext: \(error)")
                 }
@@ -56,11 +63,14 @@ public func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping
         if let countries = json {
             for item in countries {
                 
-                let capital = item["capitalCity"] as! String?
+                let capital = item["capitalCity"] as! String? // The need according of correctness API
                 if capital != "" {
-                    let country = database.createCountryIn(context: privateContext) as? Country
-                    country?.countrieName = item~"name"
-                    country?.capitalCity = item~"capitalCity"
+                    let countryName: String? = item~?"name"
+                    let country = database.findOrCreateEntity(context: privateContext, predicate: countryName) as? Country
+                    country?.countrieName = countryName
+                    country?.capitalCity = item~?"capitalCity"
+                    
+                    array.append(country!)
                 }
             }
         }
@@ -70,7 +80,13 @@ public func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping
                 do {
                     try mainContext.save()
                     print("Data has been loaded successfully")
-                    block(database.fetchEntities())
+                    var objects = [Country]()
+                    for item in array {
+                        let country = database.findEntity(in: mainContext, predicate: item.countrieName) as? Country
+                        objects.append(country!)
+                    }
+                    block(objects)
+                    array.removeAll()
                 } catch {
                     fatalError("Failure to save mainContext: \(error)")
                 }

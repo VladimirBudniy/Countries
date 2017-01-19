@@ -8,13 +8,12 @@
 
 import Foundation
 
-infix operator ~
-infix operator ~?
-infix operator ~|
-infix operator ~||
+infix operator ~   // return simple value
+infix operator ~?  // return optional value
+infix operator ~|  // return array
+infix operator ~|| // return dictionary
 
-
-public func ~<T>(JSONObject: [String: Any], object: String) -> T? {
+public func ~?<T>(JSONObject: [String: Any], object: String) -> T? {
     let value = JSONObject[object]
     
     if let result = value as? Array<String> {
@@ -41,8 +40,9 @@ public func ~<T>(JSONObject: [String: Any], object: String) -> T? {
     return value as? T
 }
 
-public func ~?<T>(JSONObject: [String: Any]?, object: String) -> T? {
-    return nil
+public func ~<T>(JSONObject: [String: Any]?, object: String) -> T {
+    let value = JSONObject?[object]
+    return value as! T
 }
 
 public func ~|<T>(JSONObject: [String: Any], object: String) -> T? {
