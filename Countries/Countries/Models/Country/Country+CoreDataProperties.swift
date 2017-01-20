@@ -23,5 +23,7 @@ extension Country {
     @NSManaged public var populationQty: Int64
     @NSManaged public var nativeName: String?
     @NSManaged public var currencies: String?
-
+    @NSManaged public var latitude: String?
+    @NSManaged public var longitude: String?
+    @NSManaged public var languages: String?
 }

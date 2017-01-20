@@ -4,12 +4,15 @@
         <attribute name="capitalCity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countrieName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currencies" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="languages" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nativeName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="populationQty" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="regionName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timezones" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Country" positionX="-36" positionY="9" width="128" height="150"/>
+        <element name="Country" positionX="-36" positionY="9" width="128" height="195"/>
     </elements>
 </model>

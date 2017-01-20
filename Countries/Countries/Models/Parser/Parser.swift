@@ -12,7 +12,11 @@ import CoreData
 var array = [Country]()
 var currentCountry: Country?
 
-public func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @escaping ([Country]?) -> ()) {
+typealias objects = ([Country]?) -> ()
+typealias object = (Country?) -> ()
+typealias error = (Error) -> ()
+
+func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @escaping object, errorBlock: @escaping error) {
     let database = DatabaseController.sharedInstance
     let mainContext = database.getMainContext()
     let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -20,16 +24,14 @@ public func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @e
     privateContext.perform ({
         if let countries = json {
             for item in countries {
-                
                 let countryName: String? = item~?"name"
-                let country = database.findEntity(in: privateContext, predicate: countryName) as? Country //////////////////////
-                
+                let country = database.findEntity(in: privateContext, predicate: countryName) as? Country
                 country?.nativeName = item~?"nativeName"
                 country?.populationQty = item~"population"
                 country?.regionName = item~?"region"
                 country?.timezones = item~?"timezones"
                 country?.currencies = item~?"currencies"
-                
+                country?.languages = item~?"languages"
                 currentCountry = country
             }
         }
@@ -39,22 +41,23 @@ public func parsJSONCountriesDetails(json: [Dictionary<String, Any>]?, block: @e
                 do {
                     try mainContext.save()
                     print("Data has been loaded successfully")
-                    
-//                    let country = database.findEntity(in: mainContext, countryName: currentCountry?.countrieName) as? Country
-//                    block(database.fetchEntities())
-                    
-                    
+                    let country = database.findEntity(in: mainContext, predicate: currentCountry?.countrieName) as? Country
+                    block(country)
                 } catch {
-                    fatalError("Failure to save mainContext: \(error)")
+                    errorBlock(error)
+//                    fatalError("Failure to save mainContext: \(error)")
                 }
             }
         } catch {
-            fatalError("Failure to save privateContext: \(error)")
+            DispatchQueue.main.async {
+                errorBlock(error)
+            }
+//            fatalError("Failure to save privateContext: \(error)")
         }
     })
 }
 
-public func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping ([Country]?) -> ()) {
+func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping objects, errorBlock: @escaping error) {
     let database = DatabaseController.sharedInstance
     let mainContext = database.getMainContext()
     let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -62,14 +65,14 @@ public func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping
     privateContext.perform ({
         if let countries = json {
             for item in countries {
-                
                 let capital = item["capitalCity"] as! String? // The need according of correctness API
                 if capital != "" {
                     let countryName: String? = item~?"name"
                     let country = database.findOrCreateEntity(context: privateContext, predicate: countryName) as? Country
                     country?.countrieName = countryName
                     country?.capitalCity = item~?"capitalCity"
-                    
+                    country?.longitude = item~?"longitude"
+                    country?.latitude = item~?"latitude"
                     array.append(country!)
                 }
             }
@@ -88,11 +91,15 @@ public func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping
                     block(objects)
                     array.removeAll()
                 } catch {
-                    fatalError("Failure to save mainContext: \(error)")
+                    errorBlock(error)
+//                    fatalError("Failure to save mainContext: \(error)")
                 }
             }
         } catch {
-            fatalError("Failure to save privateContext: \(error)")
+            DispatchQueue.main.async {
+                errorBlock(error)
+            }
+//            fatalError("Failure to save privateContext: \(error)")
         }
     })
 }

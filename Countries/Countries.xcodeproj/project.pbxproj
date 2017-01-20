@@ -25,9 +25,14 @@
 		CFA554331E24EBC4008F3CC9 /* ViewControllerRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */; };
 		CFA554351E24EC36008F3CC9 /* Country+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554341E24EC36008F3CC9 /* Country+Operators.swift */; };
 		CFA554381E24EDD5008F3CC9 /* Extension+Integer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554371E24EDD5008F3CC9 /* Extension+Integer.swift */; };
+		CFA64FE61E30F1BE0086DD14 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA64FE41E30F1BE0086DD14 /* DetailViewController.swift */; };
+		CFA64FE71E30F1BE0086DD14 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFA64FE51E30F1BE0086DD14 /* DetailViewController.xib */; };
+		CFA64FE91E30F1D20086DD14 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA64FE81E30F1D20086DD14 /* DetailView.swift */; };
 		CFBC79071E12706D007C7060 /* CountriesPortraitViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBC79051E12706D007C7060 /* CountriesPortraitViewCell.swift */; };
 		CFBC79081E12706D007C7060 /* CountriesPortraitViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFBC79061E12706D007C7060 /* CountriesPortraitViewCell.xib */; };
 		CFE541151E2E73AB00DC1E8E /* Country+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE541141E2E73AB00DC1E8E /* Country+Network.swift */; };
+		CFE920F81E320D9D003D4ABE /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE920F71E320D9D003D4ABE /* Extension+String.swift */; };
+		CFE920FA1E3222F3003D4ABE /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE920F91E3222F3003D4ABE /* Annotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,9 +56,14 @@
 		CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRootView.swift; sourceTree = "<group>"; };
 		CFA554341E24EC36008F3CC9 /* Country+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+Operators.swift"; sourceTree = "<group>"; };
 		CFA554371E24EDD5008F3CC9 /* Extension+Integer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Integer.swift"; sourceTree = "<group>"; };
+		CFA64FE41E30F1BE0086DD14 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		CFA64FE51E30F1BE0086DD14 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		CFA64FE81E30F1D20086DD14 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		CFBC79051E12706D007C7060 /* CountriesPortraitViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesPortraitViewCell.swift; sourceTree = "<group>"; };
 		CFBC79061E12706D007C7060 /* CountriesPortraitViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountriesPortraitViewCell.xib; sourceTree = "<group>"; };
 		CFE541141E2E73AB00DC1E8E /* Country+Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+Network.swift"; sourceTree = "<group>"; };
+		CFE920F71E320D9D003D4ABE /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
+		CFE920F91E3222F3003D4ABE /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +121,7 @@
 		CF49AB8B1E0D7143006A6496 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CFA64FE21E30F1A80086DD14 /* DetailViewController */,
 				CF49AB8C1E0D7154006A6496 /* CountriesViewController */,
 			);
 			path = UI;
@@ -187,8 +198,28 @@
 			isa = PBXGroup;
 			children = (
 				CFA554371E24EDD5008F3CC9 /* Extension+Integer.swift */,
+				CFE920F71E320D9D003D4ABE /* Extension+String.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		CFA64FE21E30F1A80086DD14 /* DetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CFA64FE31E30F1A80086DD14 /* DetailView */,
+				CFA64FE41E30F1BE0086DD14 /* DetailViewController.swift */,
+				CFA64FE51E30F1BE0086DD14 /* DetailViewController.xib */,
+			);
+			path = DetailViewController;
+			sourceTree = "<group>";
+		};
+		CFA64FE31E30F1A80086DD14 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				CFE920F91E3222F3003D4ABE /* Annotation.swift */,
+				CFA64FE81E30F1D20086DD14 /* DetailView.swift */,
+			);
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 		CFBC79041E12706D007C7060 /* CountriesPortraitViewCell */ = {
@@ -260,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF49AB841E0D7009006A6496 /* LaunchScreen.storyboard in Resources */,
+				CFA64FE71E30F1BE0086DD14 /* DetailViewController.xib in Resources */,
 				CF49AB811E0D7009006A6496 /* Assets.xcassets in Resources */,
 				CFBC79081E12706D007C7060 /* CountriesPortraitViewCell.xib in Resources */,
 				CF49ABA21E0D7220006A6496 /* CountriesViewController.xib in Resources */,
@@ -275,8 +307,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFA554351E24EC36008F3CC9 /* Country+Operators.swift in Sources */,
+				CFA64FE91E30F1D20086DD14 /* DetailView.swift in Sources */,
+				CFA64FE61E30F1BE0086DD14 /* DetailViewController.swift in Sources */,
 				CF49AB7F1E0D7009006A6496 /* Countries.xcdatamodeld in Sources */,
 				CFA554321E24EBC4008F3CC9 /* AlertViewController.swift in Sources */,
+				CFE920F81E320D9D003D4ABE /* Extension+String.swift in Sources */,
+				CFE920FA1E3222F3003D4ABE /* Annotation.swift in Sources */,
 				CF08436B1E13B37900C1F3A7 /* CountriesLandscapeViewCell.swift in Sources */,
 				CF7902661E2FC145004C7C07 /* Parser.swift in Sources */,
 				CF49ABA11E0D7220006A6496 /* CountriesViewController.swift in Sources */,

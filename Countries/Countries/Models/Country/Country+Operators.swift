@@ -10,45 +10,52 @@ import Foundation
 
 infix operator ~   // return simple value
 infix operator ~?  // return optional value
-infix operator ~|  // return array
-infix operator ~|| // return dictionary
 
 public func ~?<T>(JSONObject: [String: Any], object: String) -> T? {
     let value = JSONObject[object]
     
     if let result = value as? Array<String> {
-        return result.joined(separator: " ") as? T
+        return compute(value: result)
     }
     
     if let result = value as? Array<Int> {
-        let value = result.flatMap({ String($0) })
-        return value.joined(separator: ", ") as? T
+        return compute(value: result)
     }
     
     if let result = value as? Dictionary<String, Any> {
-        let keys = Array(result.keys)
-        var array = [String]()
-        for key in keys {
-            array.append("\(key) = \(result[key]!)")
-        }
-        
-        let value = array.joined(separator: ", ")
-        
-        return value as? T
+        return compute(value: result)
     }
     
-    return value as? T
+    return compute(value: value)
 }
 
 public func ~<T>(JSONObject: [String: Any]?, object: String) -> T {
     let value = JSONObject?[object]
-    return value as! T
+    return compute(value: value)!
 }
 
-public func ~|<T>(JSONObject: [String: Any], object: String) -> T? {
-    return nil
+// MARK: - Private
+
+private func compute<T, U>(value: T) -> U? {
+    let value = value
+    return value as? U
 }
 
-public func ~||<T>(JSONObject: [String: Any], object: String) -> T? {
-    return nil
+private func compute<T>(value: Array<String>) -> T? {
+    return value.joined(separator: ", ") as? T
+}
+
+private func compute<T>(value: Array<Int>) -> T? {
+    let result = value.flatMap({ String($0) })
+    return result.joined(separator: ", ") as? T
+}
+
+private func compute<T>(value: Dictionary<String, Any>) -> T? {
+    let keys = Array(value.keys)
+    var array = [String]()
+    for key in keys {
+        array.append("\(key) = \(value[key]!)")
+    }
+
+    return array.joined(separator: ", ") as? T
 }

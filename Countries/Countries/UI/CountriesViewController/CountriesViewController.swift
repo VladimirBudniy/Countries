@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CountriesViewController: UIViewController, ViewControllerRootView, UITableViewDataSource, UITableViewDelegate {
+class CountriesViewController: UIViewController, ViewControllerRootView, AlertViewController, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Accessors
     
@@ -62,7 +62,8 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         
-        // add new viewController!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        let controller = DetailViewController(country: (self.countries?[indexPath.row])!)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -79,6 +80,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
     
     private func addRefreshControl() {
         let control = UIRefreshControl()
+        control.attributedTitle = NSAttributedString(string: "Pull to refersh")
         control.addTarget(self, action: #selector(refreshView), for: UIControlEvents.valueChanged)
         self.tableView?.refreshControl = control
     }
@@ -96,6 +98,20 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         }
     }
     
+    private func loadError(error: Error) {
+        self.tableView?.refreshControl?.endRefreshing()
+        let currentError = error.localizedDescription
+        
+        
+        let alertController = alertViewControllerWith(title: "Error",
+                                                      message: currentError,
+                                                      preferredStyle: UIAlertControllerStyle.alert,
+                                                      actionTitle: "Ok",
+                                                      style: UIAlertActionStyle.default,
+                                                      handler: nil)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     private func loadCounties(forPage: Int = 1, primaryLoad: Bool = true) {
         if primaryLoad == true {
             DatabaseController.sharedInstance.deleteAll()
@@ -104,7 +120,7 @@ class CountriesViewController: UIViewController, ViewControllerRootView, UITable
         }
         
         let stringPage = String(forPage)
-        Country.load(page:stringPage, block: addObjects)
+        Country.load(page:stringPage, block: addObjects, errorBlock:loadError)
     }
 
     private func registerCellWith(identifier: String) {
