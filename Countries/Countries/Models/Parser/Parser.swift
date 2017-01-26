@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-var array = [Country]()
+var countriesArray = [Country]()
 var currentCountry: Country?
 
 typealias objects = ([Country]?) -> ()
@@ -73,7 +73,7 @@ func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping object
                     country?.capitalCity = item~?"capitalCity"
                     country?.longitude = item~?"longitude"
                     country?.latitude = item~?"latitude"
-                    array.append(country!)
+                    countriesArray.append(country!)
                 }
             }
         }
@@ -84,12 +84,12 @@ func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping object
                     try mainContext.save()
                     print("Data has been loaded successfully")
                     var objects = [Country]()
-                    for item in array {
+                    for item in countriesArray {
                         let country = database.findEntity(in: mainContext, predicate: item.countrieName) as? Country
                         objects.append(country!)
                     }
                     block(objects)
-                    array.removeAll()
+                    countriesArray.removeAll()
                 } catch {
                     errorBlock(error)
 //                    fatalError("Failure to save mainContext: \(error)")

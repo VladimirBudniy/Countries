@@ -15,15 +15,15 @@ let requestPage = "&page="
 let countryDetailsURL = "https://restcountries.eu/rest/v1/name/"
 
 extension Country {
-
+    
     typealias objects = ([Country]?) -> ()
     typealias object = (Country?) -> ()
     typealias error = (Error) -> ()
-    
+
     static func loadCountry(name: String, block: @escaping object, errorBlock: @escaping error) {
         let url = URL(string: countryDetailsURL + name.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
-        let request = URLRequest(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
         
+        let request = URLRequest(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
@@ -49,11 +49,9 @@ extension Country {
     }
     
     static func load(perPage: String = "30", page: String, block: @escaping objects, errorBlock: @escaping error) {
+        let url = URL(string: requestedURL + perPage + requestFormat + requestPage + page)
         
-        let requestURL = requestedURL + perPage + requestFormat + requestPage + page
-        let url = URL(string: requestURL)
-        let request = URLRequest(url: url!)
-        
+        let request = URLRequest(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
@@ -68,6 +66,36 @@ extension Country {
                     let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as? [Any]
                     let JSON = json?.last as? [Dictionary<String, Any>]
                     parsJSONCountries(json: JSON, block: block, errorBlock: errorBlock)
+                } catch {
+                    DispatchQueue.main.async {
+                        errorBlock(error)
+                    }
+                }
+            }
+        })
+        
+        task.resume()
+    }
+    
+    static func loadWith(url: URL, page: String, block: @escaping objects, errorBlock: @escaping error) {
+        let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    errorBlock(error!)
+                }
+            }
+            if error == nil {
+                do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments)
+                    if let JSON = json as? [Dictionary<String, Any>] {
+                        parsJSONCountries(json: JSON, block: block, errorBlock: errorBlock)
+                    } else if let JSON = json as? [Any] {
+                        parsJSONCountries(json: JSON.last as! [Dictionary<String, Any>]?, block: block, errorBlock: errorBlock)
+                    }
                 } catch {
                     DispatchQueue.main.async {
                         errorBlock(error)

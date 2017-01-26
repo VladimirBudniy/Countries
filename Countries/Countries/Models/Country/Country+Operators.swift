@@ -38,6 +38,7 @@ public func ~<T>(JSONObject: [String: Any]?, object: String) -> T {
 
 private func compute<T, U>(value: T) -> U? {
     let value = value
+    
     return value as? U
 }
 
@@ -47,6 +48,7 @@ private func compute<T>(value: Array<String>) -> T? {
 
 private func compute<T>(value: Array<Int>) -> T? {
     let result = value.flatMap({ String($0) })
+    
     return result.joined(separator: ", ") as? T
 }
 
