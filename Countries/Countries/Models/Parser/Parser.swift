@@ -65,11 +65,9 @@ func parsJSONCountries(json: [Dictionary<String, Any>]?, block: @escaping object
     privateContext.perform ({
         if let countries = json {
             for item in countries {
-                let capital = item["capitalCity"] as! String? // The need according of correctness API
-                if capital != "" {
+                if item["capitalCity"] as! String?  != "" {  // The need according of correctness API
                     let countryName: String? = item~?"name"
                     let country = database.findOrCreateEntity(context: privateContext, predicate: countryName) as? Country
-                    country?.countrieName = countryName
                     country?.capitalCity = item~?"capitalCity"
                     country?.longitude = item~?"longitude"
                     country?.latitude = item~?"latitude"

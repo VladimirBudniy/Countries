@@ -55,8 +55,15 @@ class DatabaseController {
         if let country = result {
             return country
         } else {
-            return NSEntityDescription.insertNewObject(forEntityName: self.entityName, into: context)
+            return self.createCountryWithName(name: predicate!, context: context)
         }
+    }
+    
+    func createCountryWithName(name: String, context: NSManagedObjectContext) -> NSManagedObject? {
+        let object = NSEntityDescription.insertNewObject(forEntityName: self.entityName, into: context)
+        object.setValue(name, forKey: "countrieName")
+        
+        return object
     }
     
     func deleteAll() {
