@@ -77,33 +77,33 @@ extension Country {
         task.resume()
     }
     
-    static func loadWith(url: URL, page: String, block: @escaping objects, errorBlock: @escaping error) {
-        let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    errorBlock(error!)
-                }
-            }
-            if error == nil {
-                do{
-                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments)
-                    if let JSON = json as? [Dictionary<String, Any>] {
-                        parsJSONCountries(json: JSON, block: block, errorBlock: errorBlock)
-                    } else if let JSON = json as? [Any] {
-                        parsJSONCountries(json: JSON.last as! [Dictionary<String, Any>]?, block: block, errorBlock: errorBlock)
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        errorBlock(error)
-                    }
-                }
-            }
-        })
-        
-        task.resume()
-    }
+//    static func loadWith(url: URL, page: String, block: @escaping objects, errorBlock: @escaping error) {
+//        let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
+//        let config = URLSessionConfiguration.default
+//        let session = URLSession(configuration: config)
+//        
+//        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
+//            if error != nil {
+//                DispatchQueue.main.async {
+//                    errorBlock(error!)
+//                }
+//            }
+//            if error == nil {
+//                do{
+//                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments)
+//                    if let JSON = json as? [Dictionary<String, Any>] {
+//                        parsJSONCountries(json: JSON, block: block, errorBlock: errorBlock)
+//                    } else if let JSON = json as? [Any] {
+//                        parsJSONCountries(json: JSON.last as! [Dictionary<String, Any>]?, block: block, errorBlock: errorBlock)
+//                    }
+//                } catch {
+//                    DispatchQueue.main.async {
+//                        errorBlock(error)
+//                    }
+//                }
+//            }
+//        })
+//        
+//        task.resume()
+//    }
 }
