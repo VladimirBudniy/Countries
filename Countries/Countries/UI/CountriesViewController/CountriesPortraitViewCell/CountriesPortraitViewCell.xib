@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGz-ht-xBT">
@@ -87,7 +87,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="capitalName" destination="4Vf-Xx-N6x" id="S7a-hn-Sb1"/>
-                <outlet property="countrieName" destination="gGe-YD-rtz" id="Tn9-lH-Mfj"/>
+                <outlet property="countryName" destination="gGe-YD-rtz" id="AmS-XR-D05"/>
             </connections>
             <point key="canvasLocation" x="-411" y="-895"/>
         </tableViewCell>

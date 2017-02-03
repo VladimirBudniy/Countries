@@ -14,12 +14,12 @@ class DetailViewController: UIViewController, ViewControllerRootView, AlertViewC
     
     typealias RootViewType = DetailView
     
-    let country: Country
+    let countryName: String
     
     // MARK: - Initializations and Deallocations
     
-    init(country: Country) {
-        self.country = country
+    init(countryName: String) {
+        self.countryName = countryName
         super.init(nibName: String(describing: DetailViewController.self), bundle: nil)
     }
     
@@ -32,7 +32,7 @@ class DetailViewController: UIViewController, ViewControllerRootView, AlertViewC
     override func viewDidLoad() {
         super.viewDidLoad()
         self.rootView.showSpinner()
-        self.loadCountry()
+        self.load()
     }
     
     // MARK: - Private
@@ -48,16 +48,17 @@ class DetailViewController: UIViewController, ViewControllerRootView, AlertViewC
                                                       preferredStyle: UIAlertControllerStyle.alert,
                                                       actionTitle: "Ok",
                                                       style: UIAlertActionStyle.default,
-                                                      handler: nil)
-        alertController.target(forAction: #selector(popViewController), withSender: nil)
+                                                      handler:({(alert: UIAlertAction!) in self.popViewController()}))
         self.present(alertController, animated: true, completion: nil)
     }
     
-    private func loadCountry() {
-        Country.loadCountry(name: self.country.countrieName!, block: showCountry, errorBlock:loadError)
+    private func load() {
+        if let url = Country.urlFor(country: self.countryName) {
+            loadWith(url: url, block: showCountry, errorBlock: loadError)
+        }
     }
     
-    private func showCountry(country: Country?) {
-        self.rootView.fillWithCountry(country: country!)
+    private func showCountry(country: [Country]?) {
+        self.rootView.fillWithCountry(country: (country?.first)!)
     }
 }

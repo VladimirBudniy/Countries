@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CountriesViewController: UIViewController, ViewControllerRootView, AlertViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -15,9 +16,8 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
     typealias RootViewType = CountriesView
     
     let identifier = String(describing: CountriesPortraitViewCell.self)
-    
     var requestPage = 1
-    
+    let allPagesCount = 11
     var countries: [Country]?
     
     var tableView: UITableView? {
@@ -51,10 +51,13 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.identifier) as! CountryViewCell
-        cell.fillWithObject(object: (self.countries?[indexPath.row])!)
-        
-        return cell
+        var cell = tableView.dequeueReusableCell(withIdentifier: self.identifier) as? CountryViewCell
+        if cell == nil {
+            cell = CountryViewCell(style: UITableViewCellStyle.default, reuseIdentifier: self.identifier)
+        }
+        cell?.fillWithModel(model: (self.countries?[indexPath.row])!)
+
+        return cell!
     }
     
     // MARK: - UITableViewDelegate
@@ -62,17 +65,20 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         
-        let controller = DetailViewController(country: (self.countries?[indexPath.row])!)
+        let country = self.countries?[indexPath.row]
+        let controller = DetailViewController(countryName: (country?.countryName)!)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        var currentPage = self.requestPage;
         let section = tableView.numberOfSections - 1
         let lastRow = tableView.numberOfRows(inSection: section) - 1
-        
-        if indexPath.row == lastRow {
-            self.requestPage += 1
-            self.loadCounties(forPage: self.requestPage, primaryLoad: false)
+
+        if indexPath.row == lastRow, currentPage < allPagesCount {
+            currentPage += 1
+            self.loadCounties(forPage: currentPage, primaryLoad: false)
+            self.requestPage = currentPage
         }
     }
     
@@ -101,8 +107,6 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
     private func loadError(error: Error) {
         self.tableView?.refreshControl?.endRefreshing()
         let currentError = error.localizedDescription
-        
-        
         let alertController = alertViewControllerWith(title: "Error",
                                                       message: currentError,
                                                       preferredStyle: UIAlertControllerStyle.alert,
@@ -114,13 +118,17 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
     
     private func loadCounties(forPage: Int = 1, primaryLoad: Bool = true) {
         if primaryLoad == true {
-            DatabaseController.sharedInstance.deleteAll()
+            NSManagedObjectContext.deleteAllInBackground()
             self.countries?.removeAll()
             self.tableView?.reloadData()
+        } else if let url = Country.url(for: forPage) {
+            loadWith(url: url, block: addObjects, errorBlock: loadError)
         }
+    }
+    
+    private func prepareURL(page: Int) -> URL? {
         
-        let stringPage = String(forPage)
-        Country.load(page:stringPage, block: addObjects, errorBlock:loadError)
+        return nil
     }
 
     private func registerCellWith(identifier: String) {

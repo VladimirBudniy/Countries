@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        _ = DatabaseController.sharedInstance
+
         let window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController()
         let viewController = CountriesViewController()
@@ -32,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        DatabaseController.sharedInstance.saveContext()
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -44,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        DatabaseController.sharedInstance.saveContext()
+        
     }
 }
 

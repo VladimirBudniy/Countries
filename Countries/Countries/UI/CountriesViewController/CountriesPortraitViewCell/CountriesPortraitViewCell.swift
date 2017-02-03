@@ -10,20 +10,14 @@ import UIKit
 
 class CountriesPortraitViewCell: CountryViewCell {
     
-    @IBOutlet var countrieName: UILabel?
+    @IBOutlet var countryName: UILabel?
     @IBOutlet var capitalName: UILabel?
-    
-    // MARK: - Initialization
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
     
     // MARK: - Public
     
-    override func fillWithObject(object: Country) {
-        self.countrieName?.text = object.countrieName
-        self.capitalName?.text = object.capitalCity
+    override func fillWithModel<T: Country>(model: T) {
+        self.countryName?.text = model.countryName
+        self.capitalName?.text = model.capitalCity
     }
     
 }

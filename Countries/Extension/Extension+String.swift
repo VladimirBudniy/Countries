@@ -10,7 +10,10 @@ import Foundation
 
 extension String {
     func doubleValue() -> Double? {
-        let double = NumberFormatter().number(from: self)?.doubleValue
+        if let double = NumberFormatter().number(from: self)?.doubleValue {
         return double
+        }
+        
+        return nil
     }
 }

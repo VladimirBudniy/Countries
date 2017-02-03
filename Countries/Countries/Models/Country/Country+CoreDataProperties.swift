@@ -17,7 +17,7 @@ extension Country {
     }
 
     @NSManaged public var capitalCity: String?
-    @NSManaged public var countrieName: String?
+    @NSManaged public var countryName: String?
     @NSManaged public var timezones: String?
     @NSManaged public var regionName: String?
     @NSManaged public var populationQty: Int64

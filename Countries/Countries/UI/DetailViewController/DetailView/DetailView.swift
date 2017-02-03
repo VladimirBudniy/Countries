@@ -35,7 +35,7 @@ class DetailView: UIView, MKMapViewDelegate {
     public func fillWithCountry(country: Country) {
         self.loadMapLocation(for: country)
         
-        self.countryName?.text = country.countrieName
+        self.countryName?.text = country.countryName
         self.capitalCity?.text = country.capitalCity
         self.region?.text = country.regionName
         self.population?.text = country.populationQty.stringFormatedWithSepator + " ppl"
@@ -45,11 +45,11 @@ class DetailView: UIView, MKMapViewDelegate {
         self.languages?.text = country.languages
     }
     
-    public func loadMapLocation(for country: Country) {
+    public func loadMapLocation(for country: Country?) {
         self.map?.delegate = self
         
-        let latitude = self.double(from: country.latitude)
-        let longitude = self.double(from: country.longitude)
+        let latitude = country?.latitude?.doubleValue()
+        let longitude = country?.longitude?.doubleValue()
         let coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
         let location = CLLocationDistance(100000)
         let region = MKCoordinateRegionMakeWithDistance(coordinate, location, location)
@@ -57,8 +57,8 @@ class DetailView: UIView, MKMapViewDelegate {
      
         
         let annotation = Annotation(coordinate: coordinate,
-                                    title: country.countrieName,
-                                    subtitle: country.capitalCity)
+                                    title: country?.countryName,
+                                    subtitle: country?.capitalCity)
         self.map?.addAnnotation(annotation)
     }
     
@@ -83,15 +83,4 @@ class DetailView: UIView, MKMapViewDelegate {
             }
         })
     }
-    
-    // MARK: Private
-    
-    private func double(from string: String?) -> Double? {
-        if let string = string {
-            return string.doubleValue()
-        }
-        
-        return nil
-    }
-    
 }

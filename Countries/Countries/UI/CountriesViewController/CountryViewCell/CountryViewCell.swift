@@ -7,21 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class CountryViewCell: UITableViewCell {
-
-    // MARK: - Initialization
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
     
     // MARK: - Public
     
-    func fillWithObject(object: Country) {
+    func fillWithModel<T: NSManagedObject>(model: T) {
 
     }
-
 
 }

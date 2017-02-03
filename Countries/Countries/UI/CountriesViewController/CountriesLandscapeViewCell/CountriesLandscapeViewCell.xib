@@ -184,7 +184,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="capitalName" destination="xZr-1L-J5U" id="2eT-nF-sEp"/>
-                <outlet property="countrieName" destination="cdz-PG-FT4" id="3wL-gX-Fad"/>
+                <outlet property="countryName" destination="cdz-PG-FT4" id="BH4-d9-wNh"/>
                 <outlet property="currencies" destination="J4o-m9-ROf" id="mgu-b2-S4f"/>
                 <outlet property="nativeName" destination="iOC-aB-Ab7" id="i6v-IO-Y51"/>
                 <outlet property="populationQty" destination="F2H-KR-KeU" id="U7c-dj-uAa"/>

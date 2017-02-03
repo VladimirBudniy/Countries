@@ -10,7 +10,7 @@ import UIKit
 
 class CountriesLandscapeViewCell: CountryViewCell {
     
-    @IBOutlet var countrieName: UILabel?
+    @IBOutlet var countryName: UILabel?
     @IBOutlet var capitalName: UILabel?
     @IBOutlet var timezones: UILabel?
     
@@ -19,22 +19,16 @@ class CountriesLandscapeViewCell: CountryViewCell {
     @IBOutlet var nativeName: UILabel?
     @IBOutlet var currencies: UILabel?
 
-    // MARK: - Initialization
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     // MARK: - Public
     
-    override func fillWithObject(object: Country) {
-        self.countrieName?.text = object.countrieName
-        self.capitalName?.text = object.capitalCity
-        self.timezones?.text = object.timezones
-        self.regionName?.text = object.regionName
-        self.nativeName?.text = object.nativeName
-        self.currencies?.text = object.currencies
-        self.populationQty?.text = object.populationQty.stringFormatedWithSepator
+    override func fillWithModel<T: Country>(model: T) {
+        self.countryName?.text = model.countryName
+        self.capitalName?.text = model.capitalCity
+        self.timezones?.text = model.timezones
+        self.regionName?.text = model.regionName
+        self.nativeName?.text = model.nativeName
+        self.currencies?.text = model.currencies
+        self.populationQty?.text = model.populationQty.stringFormatedWithSepator
     }
     
 }
