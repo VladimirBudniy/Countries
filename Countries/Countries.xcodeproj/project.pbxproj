@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A455C15AD92A84AACAF8D36E /* Pods_Countries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A6E6C24B041054EA5D6C0A /* Pods_Countries.framework */; };
 		CF08436B1E13B37900C1F3A7 /* CountriesLandscapeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0843691E13B37900C1F3A7 /* CountriesLandscapeViewCell.swift */; };
 		CF08436C1E13B37900C1F3A7 /* CountriesLandscapeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF08436A1E13B37900C1F3A7 /* CountriesLandscapeViewCell.xib */; };
 		CF49AB771E0D7009006A6496 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49AB761E0D7009006A6496 /* AppDelegate.swift */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63CDE24759D3856E44782E68 /* Pods-Countries.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Countries.release.xcconfig"; path = "Pods/Target Support Files/Pods-Countries/Pods-Countries.release.xcconfig"; sourceTree = "<group>"; };
+		B9448AE6435D095AF78FB05A /* Pods-Countries.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Countries.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Countries/Pods-Countries.debug.xcconfig"; sourceTree = "<group>"; };
 		CF0843691E13B37900C1F3A7 /* CountriesLandscapeViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesLandscapeViewCell.swift; sourceTree = "<group>"; };
 		CF08436A1E13B37900C1F3A7 /* CountriesLandscapeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountriesLandscapeViewCell.xib; sourceTree = "<group>"; };
 		CF49AB731E0D7009006A6496 /* Countries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countries.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +71,7 @@
 		CFBC79061E12706D007C7060 /* CountriesPortraitViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CountriesPortraitViewCell.xib; sourceTree = "<group>"; };
 		CFE920F71E320D9D003D4ABE /* Extension+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		CFE920F91E3222F3003D4ABE /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		D9A6E6C24B041054EA5D6C0A /* Pods_Countries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Countries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,12 +79,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A455C15AD92A84AACAF8D36E /* Pods_Countries.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4BC98ECBBEAF534F3890F9A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D9A6E6C24B041054EA5D6C0A /* Pods_Countries.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C035F19AB39C3BC7946AA138 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B9448AE6435D095AF78FB05A /* Pods-Countries.debug.xcconfig */,
+				63CDE24759D3856E44782E68 /* Pods-Countries.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CF0843681E13B37900C1F3A7 /* CountriesLandscapeViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +119,8 @@
 				CFA554361E24EDD5008F3CC9 /* Extension */,
 				CFA5542E1E24EBC4008F3CC9 /* Protocols */,
 				CF49AB741E0D7009006A6496 /* Products */,
+				C035F19AB39C3BC7946AA138 /* Pods */,
+				4BC98ECBBEAF534F3890F9A4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -244,9 +268,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CF49AB881E0D7009006A6496 /* Build configuration list for PBXNativeTarget "Countries" */;
 			buildPhases = (
+				CB921681B06C7D55A5E4E57B /* [CP] Check Pods Manifest.lock */,
 				CF49AB6F1E0D7009006A6496 /* Sources */,
 				CF49AB701E0D7009006A6496 /* Frameworks */,
 				CF49AB711E0D7009006A6496 /* Resources */,
+				4397C09B586F12A1219CCB25 /* [CP] Embed Pods Frameworks */,
+				E23A8BEFED141BFD5F6B183E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -306,6 +333,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4397C09B586F12A1219CCB25 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Countries/Pods-Countries-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB921681B06C7D55A5E4E57B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E23A8BEFED141BFD5F6B183E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Countries/Pods-Countries-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CF49AB6F1E0D7009006A6496 /* Sources */ = {
@@ -444,6 +519,7 @@
 		};
 		CF49AB891E0D7009006A6496 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9448AE6435D095AF78FB05A /* Pods-Countries.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Countries/Info.plist;
@@ -457,6 +533,7 @@
 		};
 		CF49AB8A1E0D7009006A6496 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63CDE24759D3856E44782E68 /* Pods-Countries.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Countries/Info.plist;
