@@ -121,7 +121,9 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
             NSManagedObjectContext.deleteAllInBackground()
             self.countries?.removeAll()
             self.tableView?.reloadData()
-        } else if let url = Country.url(for: forPage) {
+        }
+        
+        if let url = Country.url(for: forPage) {
             loadWith(url: url, block: addObjects, errorBlock: loadError)
         }
     }

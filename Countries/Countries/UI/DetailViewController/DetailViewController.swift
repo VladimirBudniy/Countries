@@ -59,6 +59,8 @@ class DetailViewController: UIViewController, ViewControllerRootView, AlertViewC
     }
     
     private func showCountry(country: [Country]?) {
-        self.rootView.fillWithCountry(country: (country?.first)!)
+        if let country = country {
+            self.rootView.fillWithCountry(country: country.first!)
+        }
     }
 }

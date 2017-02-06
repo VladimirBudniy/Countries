@@ -30,7 +30,7 @@ extension Country {
                             newCountry.capitalCity = item~?"capitalCity"
                             newCountry.longitude = item~?"longitude"
                             newCountry.latitude = item~?"latitude"
-                            
+
                             entities.append(newCountry)
                         } else if let currentCountry = country, type == dataType.country {
                             currentCountry.nativeName = item~?"nativeName"
@@ -47,21 +47,17 @@ extension Country {
             }
             do {
                 try privateContext.save()
-                privateContext.parent?.performAndWait {
-                    do {
-                        try privateContext.parent?.save()
-                        print("Data has been loaded successfully")
-                        var objects = [Country]()
-                        for item in entities {
-                            let country = NSManagedObjectContext.findEntity(in: privateContext.parent!, predicate: item.countryName) as? Country
-                            objects.append(country!)
-                        }
-                        block(objects)
-                        entities.removeAll()
-                    } catch {
-                        errorBlock(error)
-                    }
+                print("Data has been loaded successfully")
+                var objects = [Country]()
+                for item in entities {
+                    let country = NSManagedObjectContext.findEntity(in: privateContext.parent!, predicate: item.countryName) as? Country
+                    objects.append(country!)
                 }
+                
+                DispatchQueue.main.async {
+                    block(objects)
+                }
+                
             } catch {
                 DispatchQueue.main.async {
                     errorBlock(error)

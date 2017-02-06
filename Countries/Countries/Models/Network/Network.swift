@@ -22,7 +22,6 @@ func loadWith(url: URL, block: @escaping objects, errorBlock: @escaping error) {
         do {
             if let data = data, error == nil {
                 let json = try JSONSerialization.jsonObject(with: data, options:.allowFragments)
-                
                 if let JSON = json as? [Dictionary<String, Any>] {
                     Country.parsJSON(json: JSON, type: .country, block: block, errorBlock: errorBlock)
                 } else if let JSON = json as? [Any] {

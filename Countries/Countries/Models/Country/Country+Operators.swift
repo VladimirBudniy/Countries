@@ -11,6 +11,8 @@ import Foundation
 infix operator ~   // return simple value
 infix operator ~?  // return optional value
 
+// MARK: - Public
+
 public func ~?<T>(JSONObject: [String: Any], object: String) -> T? {
     let value = JSONObject[object]
     
