@@ -1,5 +1,5 @@
 //
-//  Country+MapContext.swift
+//  MapContext.swift
 //  Countries
 //
 //  Created by Vladimir Budniy on 2/7/17.

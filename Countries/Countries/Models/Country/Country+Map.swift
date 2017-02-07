@@ -23,13 +23,12 @@ extension Country: StaticMappable {
         self.capitalCity <- map["capitalCity"]
         self.longitude <- map["longitude"]
         self.latitude <- map["latitude"]
-        
         self.nativeName <- map["nativeName"]
         self.populationQty <- map["population"]
         self.regionName <- map["region"]
-        self.timezones <- map["timezones"]
-        self.currencies <- map["currencies"]
-        self.languages <- map["languages"]
+        self.timezones <- (map["timezones"], StringFromArrayTransform())
+        self.currencies <- (map["currencies"], StringFromArrayTransform())
+        self.languages <- (map["languages"], StringFromArrayTransform())
     }
 
     static func uniqueEntityForMapping(map: Map, uniqueKey: String = "countryName") -> Country? {

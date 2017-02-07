@@ -21,11 +21,12 @@
 		CF49ABAC1E0D73EF006A6496 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */; };
 		CF5EF9261E1FE166003278CF /* CountryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5EF9251E1FE166003278CF /* CountryViewCell.swift */; };
 		CF8D1C0F1E49B2C200F6F6DB /* Country+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D1C0E1E49B2C200F6F6DB /* Country+Map.swift */; };
-		CF8D1C131E49BFC800F6F6DB /* Country+MapContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D1C121E49BFC800F6F6DB /* Country+MapContext.swift */; };
+		CF8D1C171E49DBDD00F6F6DB /* Country+RemoveAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D1C161E49DBDD00F6F6DB /* Country+RemoveAll.swift */; };
+		CF8D1C1A1E4A0D7F00F6F6DB /* MapContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D1C191E4A0D7F00F6F6DB /* MapContext.swift */; };
+		CF8D1C1D1E4A0E3F00F6F6DB /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D1C1C1E4A0E3F00F6F6DB /* Transform.swift */; };
 		CF9AD7A61E4499AD00831142 /* Country+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9AD7A51E4499AD00831142 /* Country+URL.swift */; };
 		CFA554321E24EBC4008F3CC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA5542F1E24EBC4008F3CC9 /* AlertViewController.swift */; };
 		CFA554331E24EBC4008F3CC9 /* ViewControllerRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */; };
-		CFA554351E24EC36008F3CC9 /* Country+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554341E24EC36008F3CC9 /* Country+Operators.swift */; };
 		CFA554381E24EDD5008F3CC9 /* Extension+Integer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554371E24EDD5008F3CC9 /* Extension+Integer.swift */; };
 		CFA64FE61E30F1BE0086DD14 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA64FE41E30F1BE0086DD14 /* DetailViewController.swift */; };
 		CFA64FE71E30F1BE0086DD14 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFA64FE51E30F1BE0086DD14 /* DetailViewController.xib */; };
@@ -56,11 +57,12 @@
 		CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF5EF9251E1FE166003278CF /* CountryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryViewCell.swift; sourceTree = "<group>"; };
 		CF8D1C0E1E49B2C200F6F6DB /* Country+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+Map.swift"; sourceTree = "<group>"; };
-		CF8D1C121E49BFC800F6F6DB /* Country+MapContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+MapContext.swift"; sourceTree = "<group>"; };
+		CF8D1C161E49DBDD00F6F6DB /* Country+RemoveAll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+RemoveAll.swift"; sourceTree = "<group>"; };
+		CF8D1C191E4A0D7F00F6F6DB /* MapContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContext.swift; sourceTree = "<group>"; };
+		CF8D1C1C1E4A0E3F00F6F6DB /* Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		CF9AD7A51E4499AD00831142 /* Country+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+URL.swift"; sourceTree = "<group>"; };
 		CFA5542F1E24EBC4008F3CC9 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRootView.swift; sourceTree = "<group>"; };
-		CFA554341E24EC36008F3CC9 /* Country+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+Operators.swift"; sourceTree = "<group>"; };
 		CFA554371E24EDD5008F3CC9 /* Extension+Integer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Integer.swift"; sourceTree = "<group>"; };
 		CFA64FE41E30F1BE0086DD14 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CFA64FE51E30F1BE0086DD14 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
@@ -179,6 +181,8 @@
 		CF49ABA31E0D73C8006A6496 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CF8D1C1B1E4A0E3700F6F6DB /* Transform */,
+				CF8D1C181E4A0D5A00F6F6DB /* MapContext */,
 				CFAC95B81E43778C00880FF5 /* Network */,
 				CF49ABA41E0D73D3006A6496 /* Country */,
 			);
@@ -190,11 +194,10 @@
 			children = (
 				CF49ABA91E0D73EF006A6496 /* Country+CoreDataClass.swift */,
 				CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */,
-				CFA554341E24EC36008F3CC9 /* Country+Operators.swift */,
 				CFAC95B61E43770700880FF5 /* Country+Parser.swift */,
 				CF9AD7A51E4499AD00831142 /* Country+URL.swift */,
 				CF8D1C0E1E49B2C200F6F6DB /* Country+Map.swift */,
-				CF8D1C121E49BFC800F6F6DB /* Country+MapContext.swift */,
+				CF8D1C161E49DBDD00F6F6DB /* Country+RemoveAll.swift */,
 			);
 			path = Country;
 			sourceTree = "<group>";
@@ -205,6 +208,22 @@
 				CF5EF9251E1FE166003278CF /* CountryViewCell.swift */,
 			);
 			path = CountryViewCell;
+			sourceTree = "<group>";
+		};
+		CF8D1C181E4A0D5A00F6F6DB /* MapContext */ = {
+			isa = PBXGroup;
+			children = (
+				CF8D1C191E4A0D7F00F6F6DB /* MapContext.swift */,
+			);
+			path = MapContext;
+			sourceTree = "<group>";
+		};
+		CF8D1C1B1E4A0E3700F6F6DB /* Transform */ = {
+			isa = PBXGroup;
+			children = (
+				CF8D1C1C1E4A0E3F00F6F6DB /* Transform.swift */,
+			);
+			path = Transform;
 			sourceTree = "<group>";
 		};
 		CFA5542E1E24EBC4008F3CC9 /* Protocols */ = {
@@ -387,15 +406,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFA554351E24EC36008F3CC9 /* Country+Operators.swift in Sources */,
 				CFA64FE91E30F1D20086DD14 /* DetailView.swift in Sources */,
 				CFA64FE61E30F1BE0086DD14 /* DetailViewController.swift in Sources */,
 				CFAC95B71E43770700880FF5 /* Country+Parser.swift in Sources */,
 				CF49AB7F1E0D7009006A6496 /* Countries.xcdatamodeld in Sources */,
-				CF8D1C131E49BFC800F6F6DB /* Country+MapContext.swift in Sources */,
 				CFA554321E24EBC4008F3CC9 /* AlertViewController.swift in Sources */,
 				CFE920F81E320D9D003D4ABE /* Extension+String.swift in Sources */,
 				CFE920FA1E3222F3003D4ABE /* Annotation.swift in Sources */,
+				CF8D1C1A1E4A0D7F00F6F6DB /* MapContext.swift in Sources */,
 				CF08436B1E13B37900C1F3A7 /* CountriesLandscapeViewCell.swift in Sources */,
 				CF8D1C0F1E49B2C200F6F6DB /* Country+Map.swift in Sources */,
 				CF49ABA11E0D7220006A6496 /* CountriesViewController.swift in Sources */,
@@ -405,10 +423,12 @@
 				CFA554381E24EDD5008F3CC9 /* Extension+Integer.swift in Sources */,
 				CFAC95BA1E43779600880FF5 /* Network.swift in Sources */,
 				CFA554331E24EBC4008F3CC9 /* ViewControllerRootView.swift in Sources */,
+				CF8D1C1D1E4A0E3F00F6F6DB /* Transform.swift in Sources */,
 				CF9AD7A61E4499AD00831142 /* Country+URL.swift in Sources */,
 				CF49AB9E1E0D7220006A6496 /* CountriesView.swift in Sources */,
 				CFBC79071E12706D007C7060 /* CountriesPortraitViewCell.swift in Sources */,
 				CF49ABAC1E0D73EF006A6496 /* Country+CoreDataProperties.swift in Sources */,
+				CF8D1C171E49DBDD00F6F6DB /* Country+RemoveAll.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

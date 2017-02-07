@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import MagicalRecord
+import ReactiveCocoa
+import ReactiveSwift
 
 class CountriesViewController: UIViewController, ViewControllerRootView, AlertViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -115,21 +116,28 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
                                                       handler: nil)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     private func loadCounties(forPage: Int = 1, primaryLoad: Bool = true) {
         if primaryLoad == true {
-            
-            MagicalRecord.save({ context in
-                let objects = Country.mr_findAll(in: context)
-                context.mr_deleteObjects(objects as! NSFastEnumeration)
+            Country.removeAll().startWithResult({ result in
+                if result.value == true {
+                    self.countries?.removeAll()
+                    self.tableView?.reloadData()
+                }
             })
-            
-            self.countries?.removeAll()
-            self.tableView?.reloadData()
         }
         
         if let url = Country.url(for: forPage) {
             loadWith(url: url)
+                .observe(on: UIScheduler())
+                .startWithResult({[weak self] result in
+                switch result {
+                case .success:
+                    self?.addObjects(objects: result.value)
+                case let .failure(error):
+                    self?.loadError(error: error)
+                }
+            })
         }
     }
 

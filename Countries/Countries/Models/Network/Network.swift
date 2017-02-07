@@ -8,29 +8,38 @@
 
 import Foundation
 import Alamofire
+import ReactiveCocoa
+import ReactiveSwift
 
-func loadWith(url: URL) {
-    Alamofire.request(url).responseJSON { respons in
-        if let JSON = respons.result.value as? [Dictionary<String, Any>], respons.result.isSuccess {
-            Country.parsJSON(json: JSON)
-        } else if let JSON = respons.result.value as? [Any], respons.result.isSuccess {
-            Country.parsJSON(json: JSON.last as? [Dictionary<String, Any>])
+func loadWith(url: URL) -> SignalProducer<[Country], NSError> {
+    return SignalProducer { (observer, compositeDisposable) in
+        Alamofire.request(url).responseJSON { respons in
+            if let JSON = respons.result.value as? [Dictionary<String, Any>], respons.result.isSuccess {
+                Country.parsJSON(json: JSON)
+                    .observe(on: UIScheduler())
+                    .startWithResult({ result in
+                    switch result {
+                    case .success:
+                        observer.send(value: result.value!)
+                        observer.sendCompleted()
+                    case let .failure(error):
+                        observer.send(error: error)
+                    }
+                })
+            } else if let JSON = respons.result.value as? [Any], respons.result.isSuccess {
+                Country.parsJSON(json: JSON.last as? [Dictionary<String, Any>])
+                    .observe(on: UIScheduler())
+                    .startWithResult({ result in
+                    switch result {
+                    case .success:
+                        observer.send(value: result.value!)
+                        observer.sendCompleted()
+                    case let .failure(error):
+                        observer.send(error: error)
+                    }
+                })
+            }
         }
     }
 }
-
-
-//
-//func parsJson(array: Array<AnyObject>) -> SignalProducer<[CountrieModel], NSError> {
-//    return SignalProducer { (observer, compositeDisposable) in
-//        for element in array {
-//            if element.isKindOfClass(NSArray) {
-//                let result = Mapper<CountrieModel>().mapArray(element)! as Array<CountrieModel>
-//                observer.sendNext(result)
-//                observer.sendCompleted()
-//            }
-//        }
-//    }
-//}
-
 

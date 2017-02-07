@@ -9,6 +9,8 @@
 import Foundation
 import MagicalRecord
 import ObjectMapper
+import ReactiveCocoa
+import ReactiveSwift
 
 enum dataType {
     case countries
@@ -18,19 +20,31 @@ enum dataType {
 typealias parseDataType = dataType
 
 extension Country {
-
-    static func parsJSON(json: [Dictionary<String, Any>]?) {
-        var result: [Country]?
-        MagicalRecord.save({ context in
-            if let array = json {
-                let mapContext = CountryMapContext(context: context)
-                result = Mapper<Country>(context: mapContext).mapArray(JSONArray: array)
-//                print(result as Any)
-            }
-        }, completion: { success, error in
-            if error == nil {
-                print(result as Any)
-            }
-        })
+    
+    static func parsJSON(json: [Dictionary<String, Any>]?) -> SignalProducer<[Country], NSError> {
+        return SignalProducer { (observer, compositeDisposable) in
+            var result: [Country]?
+            MagicalRecord.save({ context in
+                if let array = json {
+                    let mapContext = CountryMapContext(context: context)
+                    result = Mapper<Country>(context: mapContext).mapArray(JSONArray: array)
+                }
+            }, completion: { success, error in
+                if let error = error {
+                    observer.send(error: error as NSError)
+                } else {
+                    var objects = [Country]()
+                    for item in result! {
+                        if let country = item.mr_(in: NSManagedObjectContext.mr_default()) {
+                            objects.append(country)
+                        }
+                    }
+                    
+                    observer.send(value: objects)
+                    observer.sendCompleted()
+                }
+            })
+        }
     }
+    
 }
