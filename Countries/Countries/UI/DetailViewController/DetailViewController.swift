@@ -54,7 +54,7 @@ class DetailViewController: UIViewController, ViewControllerRootView, AlertViewC
     
     private func load() {
         if let url = Country.urlFor(country: self.countryName) {
-            loadWith(url: url, block: showCountry, errorBlock: loadError)
+            loadWith(url: url)
         }
     }
     

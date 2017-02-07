@@ -20,8 +20,8 @@
 		CF49ABAB1E0D73EF006A6496 /* Country+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABA91E0D73EF006A6496 /* Country+CoreDataClass.swift */; };
 		CF49ABAC1E0D73EF006A6496 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */; };
 		CF5EF9261E1FE166003278CF /* CountryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5EF9251E1FE166003278CF /* CountryViewCell.swift */; };
-		CF851EA51E110B680015850E /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF851EA41E110B680015850E /* DatabaseController.swift */; };
-		CF9AD7831E4488F000831142 /* Extension+NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9AD7821E4488F000831142 /* Extension+NSManagedObjectContext.swift */; };
+		CF8D1C0F1E49B2C200F6F6DB /* Country+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D1C0E1E49B2C200F6F6DB /* Country+Map.swift */; };
+		CF8D1C131E49BFC800F6F6DB /* Country+MapContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8D1C121E49BFC800F6F6DB /* Country+MapContext.swift */; };
 		CF9AD7A61E4499AD00831142 /* Country+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9AD7A51E4499AD00831142 /* Country+URL.swift */; };
 		CFA554321E24EBC4008F3CC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA5542F1E24EBC4008F3CC9 /* AlertViewController.swift */; };
 		CFA554331E24EBC4008F3CC9 /* ViewControllerRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */; };
@@ -55,8 +55,8 @@
 		CF49ABA91E0D73EF006A6496 /* Country+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF5EF9251E1FE166003278CF /* CountryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryViewCell.swift; sourceTree = "<group>"; };
-		CF851EA41E110B680015850E /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
-		CF9AD7821E4488F000831142 /* Extension+NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+NSManagedObjectContext.swift"; sourceTree = "<group>"; };
+		CF8D1C0E1E49B2C200F6F6DB /* Country+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+Map.swift"; sourceTree = "<group>"; };
+		CF8D1C121E49BFC800F6F6DB /* Country+MapContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+MapContext.swift"; sourceTree = "<group>"; };
 		CF9AD7A51E4499AD00831142 /* Country+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Country+URL.swift"; sourceTree = "<group>"; };
 		CFA5542F1E24EBC4008F3CC9 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		CFA554301E24EBC4008F3CC9 /* ViewControllerRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRootView.swift; sourceTree = "<group>"; };
@@ -190,10 +190,11 @@
 			children = (
 				CF49ABA91E0D73EF006A6496 /* Country+CoreDataClass.swift */,
 				CF49ABAA1E0D73EF006A6496 /* Country+CoreDataProperties.swift */,
-				CF851EA41E110B680015850E /* DatabaseController.swift */,
 				CFA554341E24EC36008F3CC9 /* Country+Operators.swift */,
 				CFAC95B61E43770700880FF5 /* Country+Parser.swift */,
 				CF9AD7A51E4499AD00831142 /* Country+URL.swift */,
+				CF8D1C0E1E49B2C200F6F6DB /* Country+Map.swift */,
+				CF8D1C121E49BFC800F6F6DB /* Country+MapContext.swift */,
 			);
 			path = Country;
 			sourceTree = "<group>";
@@ -220,7 +221,6 @@
 			children = (
 				CFA554371E24EDD5008F3CC9 /* Extension+Integer.swift */,
 				CFE920F71E320D9D003D4ABE /* Extension+String.swift */,
-				CF9AD7821E4488F000831142 /* Extension+NSManagedObjectContext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -392,19 +392,19 @@
 				CFA64FE61E30F1BE0086DD14 /* DetailViewController.swift in Sources */,
 				CFAC95B71E43770700880FF5 /* Country+Parser.swift in Sources */,
 				CF49AB7F1E0D7009006A6496 /* Countries.xcdatamodeld in Sources */,
+				CF8D1C131E49BFC800F6F6DB /* Country+MapContext.swift in Sources */,
 				CFA554321E24EBC4008F3CC9 /* AlertViewController.swift in Sources */,
 				CFE920F81E320D9D003D4ABE /* Extension+String.swift in Sources */,
 				CFE920FA1E3222F3003D4ABE /* Annotation.swift in Sources */,
 				CF08436B1E13B37900C1F3A7 /* CountriesLandscapeViewCell.swift in Sources */,
+				CF8D1C0F1E49B2C200F6F6DB /* Country+Map.swift in Sources */,
 				CF49ABA11E0D7220006A6496 /* CountriesViewController.swift in Sources */,
 				CF49AB771E0D7009006A6496 /* AppDelegate.swift in Sources */,
 				CF5EF9261E1FE166003278CF /* CountryViewCell.swift in Sources */,
 				CF49ABAB1E0D73EF006A6496 /* Country+CoreDataClass.swift in Sources */,
 				CFA554381E24EDD5008F3CC9 /* Extension+Integer.swift in Sources */,
 				CFAC95BA1E43779600880FF5 /* Network.swift in Sources */,
-				CF9AD7831E4488F000831142 /* Extension+NSManagedObjectContext.swift in Sources */,
 				CFA554331E24EBC4008F3CC9 /* ViewControllerRootView.swift in Sources */,
-				CF851EA51E110B680015850E /* DatabaseController.swift in Sources */,
 				CF9AD7A61E4499AD00831142 /* Country+URL.swift in Sources */,
 				CF49AB9E1E0D7220006A6496 /* CountriesView.swift in Sources */,
 				CFBC79071E12706D007C7060 /* CountriesPortraitViewCell.swift in Sources */,
@@ -444,6 +444,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -493,6 +494,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -521,9 +523,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B9448AE6435D095AF78FB05A /* Pods-Countries.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Countries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"MagicalRecord\"",
+					"-framework",
+					"\"ObjectMapper\"",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = VB.Countries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -535,9 +548,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 63CDE24759D3856E44782E68 /* Pods-Countries.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Countries/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"MagicalRecord\"",
+					"-framework",
+					"\"ObjectMapper\"",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = VB.Countries;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

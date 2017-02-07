@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreData
+import MagicalRecord
 
 class CountriesViewController: UIViewController, ViewControllerRootView, AlertViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -118,19 +118,19 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
     
     private func loadCounties(forPage: Int = 1, primaryLoad: Bool = true) {
         if primaryLoad == true {
-            NSManagedObjectContext.deleteAllInBackground()
+            
+            MagicalRecord.save({ context in
+                let objects = Country.mr_findAll(in: context)
+                context.mr_deleteObjects(objects as! NSFastEnumeration)
+            })
+            
             self.countries?.removeAll()
             self.tableView?.reloadData()
         }
         
         if let url = Country.url(for: forPage) {
-            loadWith(url: url, block: addObjects, errorBlock: loadError)
+            loadWith(url: url)
         }
-    }
-    
-    private func prepareURL(page: Int) -> URL? {
-        
-        return nil
     }
 
     private func registerCellWith(identifier: String) {

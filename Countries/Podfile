@@ -4,5 +4,7 @@ use_frameworks!
 
 target 'Countries' do
 	pod 'Alamofire', '~> 4.3'
-
+	pod "MagicalRecord"
+	pod 'ObjectMapper', '~> 2.2'
+	pod 'ReactiveCocoa', '~> 5.0.0'
 end

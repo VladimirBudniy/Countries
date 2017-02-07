@@ -10,14 +10,13 @@ import UIKit
 
 class CountriesLandscapeViewCell: CountryViewCell {
     
-    @IBOutlet var countryName: UILabel?
-    @IBOutlet var capitalName: UILabel?
-    @IBOutlet var timezones: UILabel?
-    
-    @IBOutlet var regionName: UILabel?
+    @IBOutlet var countryName:   UILabel?
+    @IBOutlet var capitalName:   UILabel?
+    @IBOutlet var timezones:     UILabel?
+    @IBOutlet var regionName:    UILabel?
     @IBOutlet var populationQty: UILabel?
-    @IBOutlet var nativeName: UILabel?
-    @IBOutlet var currencies: UILabel?
+    @IBOutlet var nativeName:    UILabel?
+    @IBOutlet var currencies:    UILabel?
 
     // MARK: - Public
     
