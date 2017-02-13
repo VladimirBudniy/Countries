@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import CoreData
+import ReactiveCocoa
+import ReactiveSwift
 
 class CountriesViewController: UIViewController, ViewControllerRootView, AlertViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -115,22 +116,29 @@ class CountriesViewController: UIViewController, ViewControllerRootView, AlertVi
                                                       handler: nil)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     private func loadCounties(forPage: Int = 1, primaryLoad: Bool = true) {
         if primaryLoad == true {
-            NSManagedObjectContext.deleteAllInBackground()
-            self.countries?.removeAll()
-            self.tableView?.reloadData()
+            Country.removeAll().startWithResult({ result in
+                if result.value == true {
+                    self.countries?.removeAll()
+                    self.tableView?.reloadData()
+                }
+            })
         }
         
         if let url = Country.url(for: forPage) {
-            loadWith(url: url, block: addObjects, errorBlock: loadError)
+            loadWith(url: url)
+                .observe(on: UIScheduler())
+                .startWithResult({[weak self] result in
+                switch result {
+                case .success:
+                    self?.addObjects(objects: result.value)
+                case let .failure(error):
+                    self?.loadError(error: error)
+                }
+            })
         }
-    }
-    
-    private func prepareURL(page: Int) -> URL? {
-        
-        return nil
     }
 
     private func registerCellWith(identifier: String) {

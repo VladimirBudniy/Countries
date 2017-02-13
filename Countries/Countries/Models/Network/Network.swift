@@ -7,37 +7,39 @@
 //
 
 import Foundation
+import Alamofire
+import ReactiveCocoa
+import ReactiveSwift
 
-import Foundation
-
-typealias objects = ([Country]?) -> ()
-typealias error = (Error) -> ()
-
-func loadWith(url: URL, block: @escaping objects, errorBlock: @escaping error) {
-    let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData)
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config)
-    
-    let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
-        do {
-            if let data = data, error == nil {
-                let json = try JSONSerialization.jsonObject(with: data, options:.allowFragments)
-                if let JSON = json as? [Dictionary<String, Any>] {
-                    Country.parsJSON(json: JSON, type: .country, block: block, errorBlock: errorBlock)
-                } else if let JSON = json as? [Any] {
-                    Country.parsJSON(json: JSON.last as? [Dictionary<String, Any>], type: .countries, block: block, errorBlock: errorBlock)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    errorBlock(error!)
-                }
-            }
-        } catch {
-            DispatchQueue.main.async {
-                errorBlock(error)
+func loadWith(url: URL) -> SignalProducer<[Country], NSError> {
+    return SignalProducer { (observer, compositeDisposable) in
+        Alamofire.request(url).responseJSON { respons in
+            if let JSON = respons.result.value as? [Dictionary<String, Any>], respons.result.isSuccess {
+                Country.parsJSON(json: JSON)
+                    .observe(on: UIScheduler())
+                    .startWithResult({ result in
+                    switch result {
+                    case .success:
+                        observer.send(value: result.value!)
+                        observer.sendCompleted()
+                    case let .failure(error):
+                        observer.send(error: error)
+                    }
+                })
+            } else if let JSON = respons.result.value as? [Any], respons.result.isSuccess {
+                Country.parsJSON(json: JSON.last as? [Dictionary<String, Any>])
+                    .observe(on: UIScheduler())
+                    .startWithResult({ result in
+                    switch result {
+                    case .success:
+                        observer.send(value: result.value!)
+                        observer.sendCompleted()
+                    case let .failure(error):
+                        observer.send(error: error)
+                    }
+                })
             }
         }
-    })
-    
-    task.resume()
+    }
 }
+

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ReactiveCocoa
+import ReactiveSwift
 
 class DetailViewController: UIViewController, ViewControllerRootView, AlertViewController {
     
@@ -54,7 +56,16 @@ class DetailViewController: UIViewController, ViewControllerRootView, AlertViewC
     
     private func load() {
         if let url = Country.urlFor(country: self.countryName) {
-            loadWith(url: url, block: showCountry, errorBlock: loadError)
+            loadWith(url: url)
+                .observe(on: UIScheduler())
+                .startWithResult({ [weak self] result in
+                switch result {
+                case .success:
+                    self?.showCountry(country: result.value)
+                case let .failure(error):
+                    self?.loadError(error: error)
+                }
+            })
         }
     }
     

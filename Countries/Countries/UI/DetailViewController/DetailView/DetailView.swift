@@ -34,7 +34,6 @@ class DetailView: UIView, MKMapViewDelegate {
     
     public func fillWithCountry(country: Country) {
         self.loadMapLocation(for: country)
-        
         self.countryName?.text = country.countryName
         self.capitalCity?.text = country.capitalCity
         self.region?.text = country.regionName
@@ -47,7 +46,6 @@ class DetailView: UIView, MKMapViewDelegate {
     
     public func loadMapLocation(for country: Country?) {
         self.map?.delegate = self
-        
         let latitude = country?.latitude?.doubleValue()
         let longitude = country?.longitude?.doubleValue()
         let coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
@@ -55,7 +53,6 @@ class DetailView: UIView, MKMapViewDelegate {
         let region = MKCoordinateRegionMakeWithDistance(coordinate, location, location)
         self.map?.setRegion(region, animated: true)
      
-        
         let annotation = Annotation(coordinate: coordinate,
                                     title: country?.countryName,
                                     subtitle: country?.capitalCity)
